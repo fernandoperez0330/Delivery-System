@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A9FC6080-B69C-4CDC-A5BA-C5E20A9D0C0E}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>deliverywindows</RootNamespace>
+    <AssemblyName>deliverywindows</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>resources\favicon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="views\CartersEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\CartersEditor.Designer.cs">
+      <DependentUpon>CartersEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="views\CartersManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\CartersManager.Designer.cs">
+      <DependentUpon>CartersManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="config\Config.cs" />
+    <Compile Include="views\CustomersEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\CustomersEditor.Designer.cs">
+      <DependentUpon>CustomersEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="views\CustomersManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\CustomersManager.Designer.cs">
+      <DependentUpon>CustomersManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="views\Home.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\Home.Designer.cs">
+      <DependentUpon>Home.cs</DependentUpon>
+    </Compile>
+    <Compile Include="views\Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="views\OrdersEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\OrdersEditor.Designer.cs">
+      <DependentUpon>OrdersEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="views\OrdersManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\OrdersManager.Designer.cs">
+      <DependentUpon>OrdersManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="views\SupplierEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\SupplierEditor.Designer.cs">
+      <DependentUpon>SupplierEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="views\SupplierManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\SupplierManager.Designer.cs">
+      <DependentUpon>SupplierManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="views\TravelsEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\TravelsEditor.Designer.cs">
+      <DependentUpon>TravelsEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="views\TravelsManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\TravelsManager.Designer.cs">
+      <DependentUpon>TravelsManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="views\TrucksEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\TrucksEditor.Designer.cs">
+      <DependentUpon>TrucksEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="views\TrucksManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\TrucksManager.Designer.cs">
+      <DependentUpon>TrucksManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="views\UsersManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\UsersManager.Designer.cs">
+      <DependentUpon>UsersManager.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="views\CartersEditor.resx">
+      <DependentUpon>CartersEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\CartersManager.resx">
+      <DependentUpon>CartersManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\CustomersEditor.resx">
+      <DependentUpon>CustomersEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\CustomersManager.resx">
+      <DependentUpon>CustomersManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\Home.resx">
+      <DependentUpon>Home.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\OrdersEditor.resx">
+      <DependentUpon>OrdersEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\OrdersManager.resx">
+      <DependentUpon>OrdersManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="views\SupplierEditor.resx">
+      <DependentUpon>SupplierEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\SupplierManager.resx">
+      <DependentUpon>SupplierManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\TravelsEditor.resx">
+      <DependentUpon>TravelsEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\TravelsManager.resx">
+      <DependentUpon>TravelsManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\TrucksEditor.resx">
+      <DependentUpon>TrucksEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\TrucksManager.resx">
+      <DependentUpon>TrucksManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\UsersManager.resx">
+      <DependentUpon>UsersManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="resources\favicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="models\" />
+    <Folder Include="utils\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
