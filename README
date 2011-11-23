@@ -1,0 +1,128 @@
+Analisis proyecto programacion III
+
+---------------|Entidades|---------------
+
+- Clientes (Suplidor): son aquellas personas que solicitan el servicio de la empresa de envio (la del sistema)
+
+- Clientes (Destinos): son aquellos lugares que ponen los suplidores para hacer envio hasta estos lugares
+
+- Empleados: son aquellas personas que haran gestiones de las entidades dentro del sistema, podra hacer viajes, crear y modificar usuarios, etc...
+	
+- Usuarios: son aquellas personas que podran tener acceso al sistema (solo empleado y administradores)
+	
+- Ordenes: son aquellas ordenes que hacen los SUPLIDORES que va a los CLIENTES DESTINOS, estos tienen un numero de rastreo para que el destinatario pueda saber el ESTATUS de su envio
+
+- Viajes: son los recorridos que haran los CAMIONES para llevar las ORDENES a su DESTINO, un viaje puede tener mas de una ORDEN de un solo CLIENTE
+
+- Camiones: son los que llevaran las ordenes a su destino. Se asignara por viaje.
+
+---------------|Estructura base de datos|---------------
+
+- Suplidores
+	CODIGO PK
+	NOMBRE
+	CIUDAD
+	ESTADO
+	TELEFONO
+	DIRECCION1
+	NOMBRECORTO
+
+- Clientes
+	CODIGO PK
+	NOMBRE
+	DIRECCION1
+	DIRECCION2
+	CIUDAD
+	TELEFONO
+
+- Empleados
+	NOMBRE
+	NOMBRESUPERVISOR
+	DIRECCION
+	CIUDAD
+	TELEFONO
+
+- Usuarios
+	CODIGO PK
+	USUARIO PK
+	CLAVE
+	TIPOUSUARIO
+	SINCRONIZA
+
+- Ordenes
+	CODIGOORDEN PK
+	CODIGOSUPLIDOR PK, FK
+	CODIGOVIAJE PK , FK
+	FECHAORDEN
+	ESTATUS
+	MENSAJE
+	PONOMBRE
+	CANTIDADCAJAS
+	PESOORDEN
+	NOMBRERECIBIDOR (se pondra por defecto el nombre del cliente destino, se puede cambiar)
+	FECHAENTREGA
+	FIRMAENTREGA
+	
+- Viajes
+	CODIGOVIAJE PK
+	FECHAVIAJE
+	ESTATUS	
+	
+- Camiones
+	CODIGOCAMION PK
+	DESCRIPCION
+	
+- Transacciones_Camiones
+	CODIGOVIAJE PK,FK
+	CODIGOCAMION FK
+	ODOMETRO
+	FECHATRANSACCION
+	HORATRANSACCION
+	CODIGOEMPLEADO
+	CODIGOCAMION
+	FIRMA
+	
+--------------|asignaciones para proyecto windows|--------------
+
+suplidores (adderly)
+	buscar (por campos relevantes)
+	agregar
+	modificar 
+	eliminar (verificar si existe alguna dependencia)
+	
+Viajes (edili)
+	buscar (por campos relevantes)
+	agregar 
+	modificar
+	eleminar (verificar si existe alguna dependencia)
+	
+clientes (adderly)
+	buscar (por campos relevantes)
+	agregar 
+	modificar
+	eleminar (verificar si existe alguna dependencia)
+	
+Ordenes (adderly)
+	buscar (por campos relevantes)
+	agregar 
+	modificar
+	eliminar (verificar si existe alguna dependencia)
+	
+usuarios (fernando)
+	buscar (por campos relevantes)
+	agregar 
+	modificar
+	eleminar (verificar si existe alguna dependencia)
+	
+camiones (fernando)
+	buscar (por campos relevantes)
+	agregar 
+	modificar
+	eleminar (verificar si existe alguna dependencia)
+	
+carreros (edili)
+	buscar (por campos relevantes)
+	agregar 
+	modificar
+	eleminar (verificar si existe alguna dependencia)
+
