@@ -1,0 +1,5 @@
+E:\Projects\ITLA\delivery\deliverywindows\deliveryweb\bin\deliveryweb.dll
+E:\Projects\ITLA\delivery\deliverywindows\deliveryweb\bin\deliveryweb.pdb
+E:\Projects\ITLA\delivery\deliverywindows\deliveryweb\obj\Debug\ResolveAssemblyReference.cache
+E:\Projects\ITLA\delivery\deliverywindows\deliveryweb\obj\Debug\deliveryweb.dll
+E:\Projects\ITLA\delivery\deliverywindows\deliveryweb\obj\Debug\deliveryweb.pdb

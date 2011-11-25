@@ -1,0 +1,10 @@
+E:\Projects\ITLA\deliverysystem\deliverymobile\deliverymobile\obj\Debug\ResolveAssemblyReference.cache
+E:\Projects\ITLA\deliverysystem\deliverymobile\deliverymobile\obj\Debug\deliverymobile.Properties.Resources.resources
+E:\Projects\ITLA\deliverysystem\deliverymobile\deliverymobile\obj\Debug\deliverymobile.views.Login.resources
+E:\Projects\ITLA\deliverysystem\deliverymobile\deliverymobile\obj\Debug\deliverymobile.views.Menu.resources
+E:\Projects\ITLA\deliverysystem\deliverymobile\deliverymobile\obj\Debug\deliverymobile.csproj.GenerateResource.Cache
+E:\Projects\ITLA\deliverysystem\deliverymobile\deliverymobile\bin\Debug\deliverymobile.exe
+E:\Projects\ITLA\deliverysystem\deliverymobile\deliverymobile\bin\Debug\deliverymobile.pdb
+E:\Projects\ITLA\deliverysystem\deliverymobile\deliverymobile\obj\Debug\deliverymobile.exe
+E:\Projects\ITLA\deliverysystem\deliverymobile\deliverymobile\obj\Debug\deliverymobile.pdb
+E:\Projects\ITLA\deliverysystem\deliverymobile\deliverymobile\obj\Debug\deliverymobile.views.SyncManager.resources
