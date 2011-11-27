@@ -11,9 +11,24 @@ namespace deliverywindows
 {
     public partial class SupplierManager : Form
     {
+        SupplierEditor editor;
+
         public SupplierManager()
         {
             InitializeComponent();
         }
+
+        private void agregarbtn_Click(object sender, EventArgs e)
+        {
+            editor = new SupplierEditor();
+            editor.ShowDialog();
+        }
+
+        private void salirbtn_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
+        }
+
+
     }
 }
