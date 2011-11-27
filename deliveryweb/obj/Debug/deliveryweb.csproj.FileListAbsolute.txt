@@ -3,3 +3,8 @@ E:\Projects\ITLA\delivery\deliverywindows\deliveryweb\bin\deliveryweb.pdb
 E:\Projects\ITLA\delivery\deliverywindows\deliveryweb\obj\Debug\ResolveAssemblyReference.cache
 E:\Projects\ITLA\delivery\deliverywindows\deliveryweb\obj\Debug\deliveryweb.dll
 E:\Projects\ITLA\delivery\deliverywindows\deliveryweb\obj\Debug\deliveryweb.pdb
+D:\Development\C#\Proyecto Final Programacion 3\Delivery-System\deliveryweb\bin\deliveryweb.dll
+D:\Development\C#\Proyecto Final Programacion 3\Delivery-System\deliveryweb\bin\deliveryweb.pdb
+D:\Development\C#\Proyecto Final Programacion 3\Delivery-System\deliveryweb\obj\Debug\ResolveAssemblyReference.cache
+D:\Development\C#\Proyecto Final Programacion 3\Delivery-System\deliveryweb\obj\Debug\deliveryweb.dll
+D:\Development\C#\Proyecto Final Programacion 3\Delivery-System\deliveryweb\obj\Debug\deliveryweb.pdb
