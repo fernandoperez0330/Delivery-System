@@ -26,8 +26,27 @@ namespace deliverywindows
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(this, "El suplidor ha sido agregado correctamente", "Agregar Suplidor", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            this.Dispose();
+            if (validate())
+            {
+                MessageBox.Show(this, "El suplidor ha sido agregado correctamente", "Agregar Suplidor", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Dispose();
+            }
+
+            else 
+            {
+                MessageBox.Show("LLene los Campos Correctamente");
+            }
+        }
+
+        bool validate() 
+        {
+            if (String.IsNullOrWhiteSpace(nombre.Text)) return false;
+            else if (String.IsNullOrWhiteSpace(ciudad.Text)) return false;
+            else if (String.IsNullOrWhiteSpace(estado.Text)) return false;
+            else if (String.IsNullOrWhiteSpace(telefono.Text)) return false;
+            else if (String.IsNullOrWhiteSpace(direccion.Text)) return false;
+            else if (String.IsNullOrWhiteSpace(nombrecorto.Text)) return false;
+            return true;
         }
     }
 }
