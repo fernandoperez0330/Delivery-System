@@ -51,6 +51,9 @@ namespace deliverywindows
     partial void InsertEmpleado(Empleado instance);
     partial void UpdateEmpleado(Empleado instance);
     partial void DeleteEmpleado(Empleado instance);
+    partial void InsertCiudade(Ciudade instance);
+    partial void UpdateCiudade(Ciudade instance);
+    partial void DeleteCiudade(Ciudade instance);
     #endregion
 		
 		public DATABASEDataContext() : 
@@ -144,6 +147,14 @@ namespace deliverywindows
 			get
 			{
 				return this.GetTable<Empleado>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Ciudade> Ciudades
+		{
+			get
+			{
+				return this.GetTable<Ciudade>();
 			}
 		}
 	}
@@ -1652,6 +1663,140 @@ namespace deliverywindows
 					this._TELEFONO = value;
 					this.SendPropertyChanged("TELEFONO");
 					this.OnTELEFONOChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Ciudades")]
+	public partial class Ciudade : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _CODIGO;
+		
+		private string _NOMBRE;
+		
+		private string _DESCRIPCION;
+		
+		private string _ZIPCODE;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnCODIGOChanging(int value);
+    partial void OnCODIGOChanged();
+    partial void OnNOMBREChanging(string value);
+    partial void OnNOMBREChanged();
+    partial void OnDESCRIPCIONChanging(string value);
+    partial void OnDESCRIPCIONChanged();
+    partial void OnZIPCODEChanging(string value);
+    partial void OnZIPCODEChanged();
+    #endregion
+		
+		public Ciudade()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CODIGO", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int CODIGO
+		{
+			get
+			{
+				return this._CODIGO;
+			}
+			set
+			{
+				if ((this._CODIGO != value))
+				{
+					this.OnCODIGOChanging(value);
+					this.SendPropertyChanging();
+					this._CODIGO = value;
+					this.SendPropertyChanged("CODIGO");
+					this.OnCODIGOChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NOMBRE", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string NOMBRE
+		{
+			get
+			{
+				return this._NOMBRE;
+			}
+			set
+			{
+				if ((this._NOMBRE != value))
+				{
+					this.OnNOMBREChanging(value);
+					this.SendPropertyChanging();
+					this._NOMBRE = value;
+					this.SendPropertyChanged("NOMBRE");
+					this.OnNOMBREChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DESCRIPCION", DbType="NVarChar(100)")]
+		public string DESCRIPCION
+		{
+			get
+			{
+				return this._DESCRIPCION;
+			}
+			set
+			{
+				if ((this._DESCRIPCION != value))
+				{
+					this.OnDESCRIPCIONChanging(value);
+					this.SendPropertyChanging();
+					this._DESCRIPCION = value;
+					this.SendPropertyChanged("DESCRIPCION");
+					this.OnDESCRIPCIONChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ZIPCODE", DbType="NVarChar(10)")]
+		public string ZIPCODE
+		{
+			get
+			{
+				return this._ZIPCODE;
+			}
+			set
+			{
+				if ((this._ZIPCODE != value))
+				{
+					this.OnZIPCODEChanging(value);
+					this.SendPropertyChanging();
+					this._ZIPCODE = value;
+					this.SendPropertyChanged("ZIPCODE");
+					this.OnZIPCODEChanged();
 				}
 			}
 		}

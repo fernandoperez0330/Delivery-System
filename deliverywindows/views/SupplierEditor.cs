@@ -7,13 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+using deliverywindows.models;
+
 namespace deliverywindows
 {
+
     public partial class SupplierEditor : Form
     {
+        DATABASEDataContext data;
+
         public SupplierEditor()
         {
             InitializeComponent();
+            data = DataConexion.getInstance();
+           
         }
 
         private void button2_Click(object sender, EventArgs e)

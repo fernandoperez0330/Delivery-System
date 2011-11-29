@@ -40,6 +40,7 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,6 +52,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="config\DBConnection.cs" />
+    <Compile Include="controllers\ClientesManage.cs" />
+    <Compile Include="controllers\SupplierManage.cs" />
+    <Compile Include="DATABASE.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DATABASE.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="models\DataConexion.cs" />
     <Compile Include="views\CartersEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -144,6 +153,9 @@
     <Compile Include="views\UsersManager.Designer.cs">
       <DependentUpon>UsersManager.cs</DependentUpon>
     </Compile>
+    <None Include="DATABASE.dbml.layout">
+      <DependentUpon>DATABASE.dbml</DependentUpon>
+    </None>
     <EmbeddedResource Include="views\CartersEditor.resx">
       <DependentUpon>CartersEditor.cs</DependentUpon>
     </EmbeddedResource>
@@ -200,6 +212,11 @@
       <DependentUpon>UsersManager.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
+    <None Include="DATABASE.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>DATABASE.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -214,9 +231,10 @@
     <Content Include="resources\favicon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="controllers\" />
-    <Folder Include="models\" />
     <Folder Include="utils\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

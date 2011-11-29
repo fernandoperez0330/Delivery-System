@@ -7,5 +7,6 @@ namespace deliverywindows.controllers
 {
     class SupplierManage
     {
+        DATABASEDataContext data = new DATABASEDataContext();
     }
 }

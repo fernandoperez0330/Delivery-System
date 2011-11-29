@@ -9,6 +9,8 @@ using System.Windows.Forms;
 
 namespace deliverywindows
 {
+    
+
     public partial class Home : Form
     {
         public Home()
@@ -70,6 +72,7 @@ namespace deliverywindows
 
         private void clienteToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             new CustomersManager().ShowDialog(this);
         }
 
@@ -100,7 +103,8 @@ namespace deliverywindows
 
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
-            new CustomersEditor().ShowDialog(this);
+
+            new CustomersManager().ShowDialog(this);
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)

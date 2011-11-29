@@ -90,4 +90,12 @@
       <Association Name="Empleado_Transacciones_Camione" Member="Transacciones_Camiones" ThisKey="CODIGO" OtherKey="CODIGOEMPLEADO" Type="Transacciones_Camione" />
     </Type>
   </Table>
+  <Table Name="dbo.Ciudades" Member="Ciudades">
+    <Type Name="Ciudade">
+      <Column Name="CODIGO" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NOMBRE" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="DESCRIPCION" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ZIPCODE" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>

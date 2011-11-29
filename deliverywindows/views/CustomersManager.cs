@@ -9,11 +9,19 @@ using System.Windows.Forms;
 
 namespace deliverywindows
 {
+    using controllers;
+    using models;
+
     public partial class CustomersManager : Form
     {
+        ClientesManage manage;
+        CustomersEditor editor;
+
         public CustomersManager()
         {
             InitializeComponent();
+            manage = new ClientesManage();
+            manage.setManager(this);
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -23,7 +31,20 @@ namespace deliverywindows
 
         private void button1_Click(object sender, EventArgs e)
         {
-            new CustomersEditor().ShowDialog(this);
+            editor = new CustomersEditor(ref manage);
+            manage.setEditor(ref editor);
+            editor.ShowDialog();
+        }
+        public  DataGridView DGV 
+        {
+            set { dataGridView1 = value; }
+            get { return (this.dataGridView1);}
+        }
+
+        public void showEditor()
+        {
+            editor = new CustomersEditor(ref manage);
+            editor.ShowDialog();
         }
     }
 }
