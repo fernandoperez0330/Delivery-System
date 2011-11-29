@@ -214,6 +214,7 @@
     <Content Include="resources\favicon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="controllers\" />
     <Folder Include="models\" />
     <Folder Include="utils\" />
   </ItemGroup>

@@ -22,5 +22,15 @@ namespace deliverywindows.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.;Initial Catalog=deliverydata;Integrated Security=True")]
+        public string deliverydataConnectionString {
+            get {
+                return ((string)(this["deliverydataConnectionString"]));
+            }
+        }
     }
 }
