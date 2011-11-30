@@ -53,7 +53,9 @@
   <ItemGroup>
     <Compile Include="config\DBConnection.cs" />
     <Compile Include="controllers\ClientesManage.cs" />
+    <Compile Include="controllers\ManagersInterface.cs" />
     <Compile Include="controllers\SupplierManage.cs" />
+    <Compile Include="controllers\ViajesManage.cs" />
     <Compile Include="DATABASE.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

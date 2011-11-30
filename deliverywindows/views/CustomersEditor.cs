@@ -16,13 +16,24 @@ namespace deliverywindows
     {
         ClientesManage manage;
         DATABASEDataContext data;
+        int id = -1; //para cuando se valla a actualizar el cliente
+
 
         public CustomersEditor(ref ClientesManage manage)
         {
             InitializeComponent();
             data = DataConexion.getInstance();
             this.manage = manage;
-            setCiudad();            
+            setCiudad();        
+        }
+        public void setUpdateFieldData(int id,string nombre,string direccion1,string direccion2,string ciudad,string telefono)
+        {
+            Nombre = nombre;
+            Direccion1 = direccion1;
+            Direccion2 = direccion2;
+            Ciudad = ciudad;
+            Telefono = telefono;
+            this.id = id;
         }
 
         void setCiudad() 
@@ -45,7 +56,7 @@ namespace deliverywindows
             if (validate())
             {
                 MessageBox.Show(this, "El cliente ha sido agregado correctamente", "Agregar Cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                manage.safeClient();
+                manage.Guardar();
                 this.Dispose();
             }
             else
@@ -64,6 +75,12 @@ namespace deliverywindows
             else return true;
         }
 
+
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
         public string Nombre
         {
             set { nombre.Text = value; }

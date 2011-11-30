@@ -55,6 +55,7 @@
             this.modificarbtn.TabIndex = 1;
             this.modificarbtn.Text = "Modificar";
             this.modificarbtn.UseVisualStyleBackColor = true;
+            this.modificarbtn.Click += new System.EventHandler(this.modificarbtn_Click);
             // 
             // salirbtn
             // 
@@ -73,8 +74,10 @@
             this.dataGridView1.AllowUserToOrderColumns = true;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(12, 56);
+            this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(592, 206);
             this.dataGridView1.TabIndex = 3;
             // 
@@ -83,7 +86,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(13, 8);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(229, 13);
+            this.label1.Size = new System.Drawing.Size(271, 15);
             this.label1.TabIndex = 4;
             this.label1.Text = "Lista de los suplidores disponibles en el sistema";
             // 

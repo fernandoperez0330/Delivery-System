@@ -9,7 +9,7 @@ namespace deliverywindows.controllers
 {
     using models;
 
-  public  class ClientesManage
+  public  class ClientesManage: ManagersInterface
     {
         DATABASEDataContext data;
         CustomersEditor ceditor;
@@ -55,11 +55,13 @@ namespace deliverywindows.controllers
             fillDGV();
         }
 
-        public void safeClient() 
+        public void Guardar() 
         {
-            MessageBox.Show(ceditor.Nombre +
-                ceditor.Ciudad + ceditor.Direccion1 + ceditor.Direccion2 + ceditor.Telefono);
-         Cliente c = new Cliente 
+            MessageBox.Show(ceditor.Nombre + ceditor.Ciudad + ceditor.Direccion1 + ceditor.Direccion2 + ceditor.Telefono);
+
+            if (ceditor.Id < 0)
+            {
+                Cliente c = new Cliente 
                     {
                         NOMBRE = ceditor.Nombre,
                         CIUDAD = ceditor.Ciudad,
@@ -67,7 +69,24 @@ namespace deliverywindows.controllers
                         DIRECCION2 = ceditor.Direccion2,
                         TELEFONO = ceditor.Telefono
                     };
-                    data.Clientes.InsertOnSubmit(c);
+                data.Clientes.InsertOnSubmit(c);
+            }
+            else
+            {
+                var query = from cliente in data.Clientes
+                            where cliente.CODIGO == ceditor.Id
+                            select cliente;
+
+                Cliente c = query.First<Cliente>();
+                c.NOMBRE = ceditor.Nombre;
+                c.DIRECCION1 = ceditor.Direccion1;
+                c.DIRECCION2 = ceditor.Direccion2;
+                c.CIUDAD = ceditor.Ciudad;
+                c.TELEFONO = ceditor.Telefono;
+                
+            }
+            
+                    
                     data.SubmitChanges();
 
                     fillDGV();

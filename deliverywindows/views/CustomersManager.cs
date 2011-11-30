@@ -46,5 +46,25 @@ namespace deliverywindows
             editor = new CustomersEditor(ref manage);
             editor.ShowDialog();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows == null) MessageBox.Show("NO hay Nada seleccionado");
+            else
+            {
+               
+                MessageBox.Show(dataGridView1.SelectedCells[1].Value.ToString());
+                editor = new CustomersEditor(ref manage);
+                manage.setEditor(ref editor);
+                editor.setUpdateFieldData(Convert.ToInt32(dataGridView1.SelectedCells[0].Value),
+                    dataGridView1.SelectedCells[1].Value.ToString(),
+                    dataGridView1.SelectedCells[2].Value.ToString(),
+                    dataGridView1.SelectedCells[3].Value.ToString(),
+                    dataGridView1.SelectedCells[4].Value.ToString(),
+                    dataGridView1.SelectedCells[5].Value.ToString()
+                );
+                editor.ShowDialog();
+            }
+        }
     }
 }

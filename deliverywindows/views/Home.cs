@@ -114,7 +114,7 @@ namespace deliverywindows
 
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
-            new SupplierEditor().ShowDialog(this);
+            new SupplierManager().ShowDialog(this);
         }
     }
 }
