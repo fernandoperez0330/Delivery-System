@@ -63,5 +63,16 @@ namespace deliverywindows
             get { return dataGridView1;}
         }
 
+        private void borrar_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                if (MessageBox.Show(this, "Seguro Desea Borrar?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    manage.Borrar();
+                }
+            }
+        }
+
     }
 }

@@ -8,5 +8,6 @@ namespace deliverywindows.controllers
     interface ManagersInterface
     {
         void Guardar();
+        void Borrar();
     }
 }

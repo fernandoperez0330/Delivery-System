@@ -31,11 +31,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TravelsManager));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.agregar = new System.Windows.Forms.Button();
-            this.modificar = new System.Windows.Forms.Button();
-            this.borrar = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.salir = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -46,50 +46,23 @@
             this.dataGridView1.AllowUserToOrderColumns = true;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(12, 70);
+            this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(640, 246);
             this.dataGridView1.TabIndex = 0;
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.agregar);
-            this.panel1.Controls.Add(this.borrar);
-            this.panel1.Controls.Add(this.modificar);
+            this.panel1.Controls.Add(this.button3);
+            this.panel1.Controls.Add(this.button2);
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(665, 64);
             this.panel1.TabIndex = 1;
-            // 
-            // agregar
-            // 
-            this.agregar.Location = new System.Drawing.Point(12, 21);
-            this.agregar.Name = "agregar";
-            this.agregar.Size = new System.Drawing.Size(75, 23);
-            this.agregar.TabIndex = 3;
-            this.agregar.Text = "Agregar";
-            this.agregar.UseVisualStyleBackColor = true;
-            this.agregar.Click += new System.EventHandler(this.agregar_Click);
-            // 
-            // modificar
-            // 
-            this.modificar.Location = new System.Drawing.Point(93, 21);
-            this.modificar.Name = "modificar";
-            this.modificar.Size = new System.Drawing.Size(75, 23);
-            this.modificar.TabIndex = 2;
-            this.modificar.Text = "Modificar";
-            this.modificar.UseVisualStyleBackColor = true;
-            this.modificar.Click += new System.EventHandler(this.modificar_Click);
-            // 
-            // borrar
-            // 
-            this.borrar.Location = new System.Drawing.Point(174, 21);
-            this.borrar.Name = "borrar";
-            this.borrar.Size = new System.Drawing.Size(75, 23);
-            this.borrar.TabIndex = 2;
-            this.borrar.Text = "Borrar";
-            this.borrar.UseVisualStyleBackColor = true;
-            this.borrar.Click += new System.EventHandler(this.borrar_Click);
             // 
             // panel2
             // 
@@ -108,7 +81,34 @@
             this.salir.TabIndex = 2;
             this.salir.Text = "Salir";
             this.salir.UseVisualStyleBackColor = true;
-            this.salir.Click += new System.EventHandler(this.borrar_Click);
+            this.salir.Click += new System.EventHandler(this.salir_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(12, 38);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(92, 23);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Agregar";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(110, 38);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(85, 23);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(201, 38);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(93, 23);
+            this.button3.TabIndex = 2;
+            this.button3.Text = "button3";
+            this.button3.UseVisualStyleBackColor = true;
             // 
             // TravelsManager
             // 
@@ -134,10 +134,10 @@
 
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button agregar;
-        private System.Windows.Forms.Button borrar;
-        private System.Windows.Forms.Button modificar;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button salir;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
     }
 }

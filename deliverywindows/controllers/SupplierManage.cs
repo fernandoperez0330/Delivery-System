@@ -18,6 +18,17 @@ namespace deliverywindows.controllers
             data = DataConexion.getInstance();
         }
 
+        public void Borrar()
+        {
+            var query = from suplidor in data.Suplidores
+                        where suplidor.CODIGO == Convert.ToInt32(smanager.DGV.SelectedCells[0].Value.ToString())
+                        select suplidor;
+
+            Suplidore s = query.First<Suplidore>();
+            data.Suplidores.DeleteOnSubmit(s);
+            data.SubmitChanges();
+            ToDGV();
+        }
         public void Guardar()
         {
             //Inserta

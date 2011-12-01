@@ -13,6 +13,7 @@ namespace deliverywindows
 
     public partial class Home : Form
     {
+       
         public Home()
         {
             InitializeComponent();
@@ -98,7 +99,7 @@ namespace deliverywindows
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            new CartersEditor().ShowDialog(this);
+            new CartersManager().ShowDialog(this);
         }
 
         private void toolStripButton3_Click(object sender, EventArgs e)
@@ -115,6 +116,26 @@ namespace deliverywindows
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
             new SupplierManager().ShowDialog(this);
+        }
+        //usuario
+        private void toolStripButton4_Click(object sender, EventArgs e)
+        {
+
+        }
+        //camion
+        private void toolStripButton5_Click(object sender, EventArgs e)
+        {
+            new TrucksManager().ShowDialog();
+        }
+        //orden
+        private void toolStripButton6_Click(object sender, EventArgs e)
+        {
+
+        }
+        //viaje
+        private void toolStripButton7_Click(object sender, EventArgs e)
+        {
+            new TravelsManager().ShowDialog(this);
         }
     }
 }
