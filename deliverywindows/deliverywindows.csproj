@@ -50,6 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CamionManage.cs" />
+    <Compile Include="CarreroManage.cs" />
+    <Compile Include="ClientesManage.cs" />
     <Compile Include="config\DBConnection.cs" />
     <Compile Include="deliverydataDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -58,9 +61,14 @@
     </Compile>
     <Compile Include="entities\Entity.cs" />
     <Compile Include="entities\Users.cs" />
+    <Compile Include="ManagersInterface.cs" />
     <Compile Include="models\Model.cs" />
     <Compile Include="models\ModelUsers.cs" />
+    <Compile Include="SupplierManage.cs" />
+    <Compile Include="UserValidation.cs" />
+    <Compile Include="UsuariosManage.cs" />
     <Compile Include="utils\Utils.cs" />
+    <Compile Include="ViajesManage.cs" />
     <Compile Include="views\CartersEditor.cs">
       <SubType>Form</SubType>
     </Compile>
