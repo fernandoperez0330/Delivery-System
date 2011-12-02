@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
 using System.Configuration;
+using deliverywindows.utils;
 
 namespace deliverywindows.config
 {
@@ -18,6 +19,12 @@ namespace deliverywindows.config
         /// </summary>
         private SqlConnection connection;
 
+        public SqlConnection Connection
+        {
+            get { return connection; }
+            set { connection = value; }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -26,6 +33,7 @@ namespace deliverywindows.config
             this.connect();
         }
 
+
         /// <summary>
         /// 
         /// </summary>
@@ -33,14 +41,39 @@ namespace deliverywindows.config
         private Boolean connect(){
             try
             {
-                this.connection = new SqlConnection(this.strcon);
+                this.Connection = new SqlConnection(this.strcon);
                 return true;
             }
             catch (Exception exc) {
-                //temporal para verificar cunado se realiza la conexion
-                Console.WriteLine(exc.Message);
+                Utils.logException(exc);
                 return false;
             }
         }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void open(){
+            try{
+                this.Connection.Open();
+            }catch(SqlException exc){
+                Utils.logException(exc);
+                this.Connection.Close();
+                this.Connection.Open();
+            }
+        
+        }
+
+        public void close() {
+            try { 
+                this.Connection.Close();
+            }
+            catch(SqlException exc){
+                Utils.logException(exc);
+            }
+        }
+
+
     }
 }

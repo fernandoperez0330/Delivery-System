@@ -51,6 +51,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="config\DBConnection.cs" />
+    <Compile Include="deliverydataDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>deliverydataDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="entities\Entity.cs" />
+    <Compile Include="entities\Users.cs" />
+    <Compile Include="models\Model.cs" />
+    <Compile Include="models\ModelUsers.cs" />
+    <Compile Include="utils\Utils.cs" />
     <Compile Include="views\CartersEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -200,6 +210,17 @@
       <DependentUpon>UsersManager.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
+    <None Include="deliverydataDataSet.xsc">
+      <DependentUpon>deliverydataDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="deliverydataDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>deliverydataDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="deliverydataDataSet.xss">
+      <DependentUpon>deliverydataDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -213,10 +234,7 @@
   <ItemGroup>
     <Content Include="resources\favicon.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="models\" />
-    <Folder Include="utils\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
