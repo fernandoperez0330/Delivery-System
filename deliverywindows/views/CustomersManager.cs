@@ -66,5 +66,17 @@ namespace deliverywindows
                 editor.ShowDialog();
             }
         }
+
+        private void borrar_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows != null) 
+            { 
+                if(MessageBox.Show(this,"Seguro Desea Borrar?","",MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    manage.Borrar();
+                }
+            }
+            else MessageBox.Show("NO hay Nada seleccionado");
+        }
     }
 }

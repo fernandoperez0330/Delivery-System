@@ -34,6 +34,7 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.salir = new System.Windows.Forms.Button();
+            this.borrar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -91,11 +92,22 @@
             this.salir.UseVisualStyleBackColor = true;
             this.salir.Click += new System.EventHandler(this.button3_Click);
             // 
+            // borrar
+            // 
+            this.borrar.Location = new System.Drawing.Point(224, 34);
+            this.borrar.Name = "borrar";
+            this.borrar.Size = new System.Drawing.Size(103, 23);
+            this.borrar.TabIndex = 5;
+            this.borrar.Text = "Borrar";
+            this.borrar.UseVisualStyleBackColor = true;
+            this.borrar.Click += new System.EventHandler(this.borrar_Click);
+            // 
             // CustomersManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(680, 346);
+            this.Controls.Add(this.borrar);
             this.Controls.Add(this.salir);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridView1);
@@ -118,5 +130,6 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button salir;
+        private System.Windows.Forms.Button borrar;
     }
 }

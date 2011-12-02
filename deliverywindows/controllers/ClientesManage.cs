@@ -55,6 +55,18 @@ namespace deliverywindows.controllers
             fillDGV();
         }
 
+        public void Borrar()
+        {
+            var query = from cliente in data.Clientes
+                        where cliente.CODIGO == Convert.ToInt32(manager.DGV.SelectedCells[0].Value.ToString())
+                        select cliente;
+
+            Cliente c = query.First<Cliente>();
+            data.Clientes.DeleteOnSubmit(c);
+            data.SubmitChanges();
+            fillDGV();
+            
+        }
         public void Guardar() 
         {
             MessageBox.Show(ceditor.Nombre + ceditor.Ciudad + ceditor.Direccion1 + ceditor.Direccion2 + ceditor.Telefono);
