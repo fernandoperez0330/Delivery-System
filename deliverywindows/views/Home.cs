@@ -136,11 +136,14 @@ namespace deliverywindows
         private void toolStripButton7_Click(object sender, EventArgs e)
         {
             new TravelsManager().ShowDialog(this);
+<<<<<<< HEAD
         }
 
         private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
+=======
+>>>>>>> 8f061a0cdd1796a40c5941f2a0c0d1c32cbe3aa7
         }
     }
 }

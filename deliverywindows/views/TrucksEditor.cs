@@ -59,6 +59,7 @@ namespace deliverywindows
         {
             set { id = value; }
             get { return id; }
+<<<<<<< HEAD
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -67,6 +68,8 @@ namespace deliverywindows
             {
                 this.Dispose();
             }
+=======
+>>>>>>> 8f061a0cdd1796a40c5941f2a0c0d1c32cbe3aa7
         }
     }
 }

@@ -1,5 +1,23 @@
+<<<<<<< HEAD
 E:\Projects\ITLA\deliverysystem\deliveryweb\bin\deliveryweb.dll
 E:\Projects\ITLA\deliverysystem\deliveryweb\bin\deliveryweb.pdb
 E:\Projects\ITLA\deliverysystem\deliveryweb\obj\Debug\ResolveAssemblyReference.cache
 E:\Projects\ITLA\deliverysystem\deliveryweb\obj\Debug\deliveryweb.dll
 E:\Projects\ITLA\deliverysystem\deliveryweb\obj\Debug\deliveryweb.pdb
+=======
+E:\Projects\ITLA\delivery\deliverywindows\deliveryweb\bin\deliveryweb.dll
+E:\Projects\ITLA\delivery\deliverywindows\deliveryweb\bin\deliveryweb.pdb
+E:\Projects\ITLA\delivery\deliverywindows\deliveryweb\obj\Debug\ResolveAssemblyReference.cache
+E:\Projects\ITLA\delivery\deliverywindows\deliveryweb\obj\Debug\deliveryweb.dll
+E:\Projects\ITLA\delivery\deliverywindows\deliveryweb\obj\Debug\deliveryweb.pdb
+D:\Development\C#\Proyecto Final Programacion 3\Delivery-System\deliveryweb\bin\deliveryweb.dll
+D:\Development\C#\Proyecto Final Programacion 3\Delivery-System\deliveryweb\bin\deliveryweb.pdb
+D:\Development\C#\Proyecto Final Programacion 3\Delivery-System\deliveryweb\obj\Debug\ResolveAssemblyReference.cache
+D:\Development\C#\Proyecto Final Programacion 3\Delivery-System\deliveryweb\obj\Debug\deliveryweb.dll
+D:\Development\C#\Proyecto Final Programacion 3\Delivery-System\deliveryweb\obj\Debug\deliveryweb.pdb
+C:\Users\Adderly\Documents\Visual Studio 2010\Projects\Proyecto Final Programacion 3\Delivery-System\deliveryweb\bin\deliveryweb.dll
+C:\Users\Adderly\Documents\Visual Studio 2010\Projects\Proyecto Final Programacion 3\Delivery-System\deliveryweb\bin\deliveryweb.pdb
+C:\Users\Adderly\Documents\Visual Studio 2010\Projects\Proyecto Final Programacion 3\Delivery-System\deliveryweb\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Adderly\Documents\Visual Studio 2010\Projects\Proyecto Final Programacion 3\Delivery-System\deliveryweb\obj\Debug\deliveryweb.dll
+C:\Users\Adderly\Documents\Visual Studio 2010\Projects\Proyecto Final Programacion 3\Delivery-System\deliveryweb\obj\Debug\deliveryweb.pdb
+>>>>>>> 8f061a0cdd1796a40c5941f2a0c0d1c32cbe3aa7

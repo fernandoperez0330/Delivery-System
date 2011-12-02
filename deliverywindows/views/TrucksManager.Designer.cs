@@ -30,7 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TrucksManager));
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8f061a0cdd1796a40c5941f2a0c0d1c32cbe3aa7
             this.panel2 = new System.Windows.Forms.Panel();
             this.salir = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -130,11 +133,17 @@
             this.Name = "TrucksManager";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Administracion de Camiones";
+<<<<<<< HEAD
 
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel1.ResumeLayout(false);
 
+=======
+            this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.panel1.ResumeLayout(false);
+>>>>>>> 8f061a0cdd1796a40c5941f2a0c0d1c32cbe3aa7
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -142,6 +151,7 @@
 
         #endregion
 
+<<<<<<< HEAD
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
@@ -155,6 +165,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn nOMBREDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dESCRIPCIONDataGridViewTextBoxColumn;
 
+=======
+>>>>>>> 8f061a0cdd1796a40c5941f2a0c0d1c32cbe3aa7
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button salir;
         private System.Windows.Forms.DataGridView dataGridView1;
@@ -162,5 +174,9 @@
         private System.Windows.Forms.Button borrar;
         private System.Windows.Forms.Button modificar;
         private System.Windows.Forms.Panel panel1;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8f061a0cdd1796a40c5941f2a0c0d1c32cbe3aa7
     }
 }

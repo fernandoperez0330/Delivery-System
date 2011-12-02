@@ -43,6 +43,36 @@ namespace deliverywindows
             {
                 MessageBox.Show("No Hay Nada Seleccionado...");
             }
+<<<<<<< HEAD
+=======
+        }
+
+        private void borrar_Click(object sender, EventArgs e)
+        {
+            if (DGV.SelectedRows.Count > 0)
+            {
+                if (MessageBox.Show(this, "Esta Seguro?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    manage.Borrar();
+                    manage.toDGV();
+                }
+            }
+            else
+            {
+                MessageBox.Show("No Hay Nada Seleccionado...");
+            }
+            
+        }
+
+        private void salir_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
+        }
+        public DataGridView DGV
+        {
+            set { dataGridView1 = value; }
+            get { return dataGridView1; }
+>>>>>>> 8f061a0cdd1796a40c5941f2a0c0d1c32cbe3aa7
         }
 
         private void borrar_Click(object sender, EventArgs e)

@@ -14,8 +14,13 @@ namespace deliverywindows
 
     public partial class Login : Form
     {
+<<<<<<< HEAD
         ModelUsers model;
         UserValidation validation;
+=======
+        UserValidation validation;
+
+>>>>>>> 8f061a0cdd1796a40c5941f2a0c0d1c32cbe3aa7
         public Login()
         {
             //view
@@ -27,6 +32,7 @@ namespace deliverywindows
 
         private void button1_Click(object sender, EventArgs e)
         {
+<<<<<<< HEAD
             String username = this.textBox1.Text;
             String password = this.textBox2.Text;
             Boolean error = false;
@@ -55,6 +61,8 @@ namespace deliverywindows
             else {
                 MessageBox.Show(this, "Nombre de usuario o contraseña incorrecta", "Inicio de Sesion", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+=======
+>>>>>>> 8f061a0cdd1796a40c5941f2a0c0d1c32cbe3aa7
           
            //validation = new UserValidation(textBox1.Text,textBox2.Text);
             this.Visible = false;

@@ -40,6 +40,7 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -54,6 +55,7 @@
     <Compile Include="CarreroManage.cs" />
     <Compile Include="ClientesManage.cs" />
     <Compile Include="config\DBConnection.cs" />
+<<<<<<< HEAD
     <Compile Include="deliverydataDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -69,6 +71,22 @@
     <Compile Include="UsuariosManage.cs" />
     <Compile Include="utils\Utils.cs" />
     <Compile Include="ViajesManage.cs" />
+=======
+    <Compile Include="controllers\CamionManage.cs" />
+    <Compile Include="controllers\CarreroManage.cs" />
+    <Compile Include="controllers\ClientesManage.cs" />
+    <Compile Include="controllers\ManagersInterface.cs" />
+    <Compile Include="controllers\SupplierManage.cs" />
+    <Compile Include="controllers\UserValidation.cs" />
+    <Compile Include="controllers\UsuariosManage.cs" />
+    <Compile Include="controllers\ViajesManage.cs" />
+    <Compile Include="DATABASE.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DATABASE.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="models\DataConexion.cs" />
+>>>>>>> 8f061a0cdd1796a40c5941f2a0c0d1c32cbe3aa7
     <Compile Include="views\CartersEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -162,6 +180,9 @@
     <Compile Include="views\UsersManager.Designer.cs">
       <DependentUpon>UsersManager.cs</DependentUpon>
     </Compile>
+    <None Include="DATABASE.dbml.layout">
+      <DependentUpon>DATABASE.dbml</DependentUpon>
+    </None>
     <EmbeddedResource Include="views\CartersEditor.resx">
       <DependentUpon>CartersEditor.cs</DependentUpon>
     </EmbeddedResource>
@@ -218,6 +239,7 @@
       <DependentUpon>UsersManager.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
+<<<<<<< HEAD
     <None Include="deliverydataDataSet.xsc">
       <DependentUpon>deliverydataDataSet.xsd</DependentUpon>
     </None>
@@ -229,6 +251,13 @@
     <None Include="deliverydataDataSet.xss">
       <DependentUpon>deliverydataDataSet.xsd</DependentUpon>
     </None>
+=======
+    <None Include="DATABASE.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>DATABASE.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+>>>>>>> 8f061a0cdd1796a40c5941f2a0c0d1c32cbe3aa7
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -242,7 +271,16 @@
   <ItemGroup>
     <Content Include="resources\favicon.ico" />
   </ItemGroup>
+<<<<<<< HEAD
   <ItemGroup />
+=======
+  <ItemGroup>
+    <Folder Include="utils\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+>>>>>>> 8f061a0cdd1796a40c5941f2a0c0d1c32cbe3aa7
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

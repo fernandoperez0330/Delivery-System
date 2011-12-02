@@ -29,7 +29,10 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TrucksEditor));
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8f061a0cdd1796a40c5941f2a0c0d1c32cbe3aa7
             this.cancelar = new System.Windows.Forms.Button();
             this.aceptar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -70,11 +73,19 @@
             // label2
             // 
             this.label2.AutoSize = true;
+<<<<<<< HEAD
             this.label2.Location = new System.Drawing.Point(12, 80);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(63, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "Descripción";
+=======
+            this.label2.Location = new System.Drawing.Point(17, 76);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(75, 15);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Descripcion:";
+>>>>>>> 8f061a0cdd1796a40c5941f2a0c0d1c32cbe3aa7
             // 
             // nombre
             // 
