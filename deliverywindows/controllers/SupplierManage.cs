@@ -6,66 +6,74 @@ using System.Text;
 namespace deliverywindows.controllers
 {
     using models;
+    using deliverywindows.utils;
 
-    public class SupplierManage:ManagersInterface
+    public class SupplierManage
     {
         DATABASEDataContext data;
         SupplierManager smanager;
-        SupplierEditor seditor;
+        public SupplierEditor seditor;
+
+        ModelSupplier model;
+
+
 
         public SupplierManage() 
         {
             data = DataConexion.getInstance();
+            model = new ModelSupplier();
         }
 
-        public void Borrar()
+        public Boolean Borrar()
         {
-            var query = from suplidor in data.Suplidores
-                        where suplidor.CODIGO == Convert.ToInt32(smanager.DGV.SelectedCells[0].Value.ToString())
-                        select suplidor;
+            try
+            {
+                this.model.supplier.Codigo = Convert.ToInt32(smanager.DGV.SelectedCells[0].Value);
+            }
+            catch (Exception exc) {
+                Utils.logExceptionError(exc);
+                return false;
+            }
 
-            Suplidore s = query.First<Suplidore>();
-            data.Suplidores.DeleteOnSubmit(s);
-            data.SubmitChanges();
-            ToDGV();
+            if (this.model.delete())
+            {
+                ToDGV();
+                return true;
+            }
+            else
+                return false;
+            
         }
-        public void Guardar()
+        public Boolean Guardar()
         {
             //Inserta
             if (seditor.ID < 0)
             {
-                Suplidore s = new Suplidore
-                                {
-                                    NOMBRE = seditor.Nombre,
-                                    CIUDAD = seditor.Ciudad,
-                                    ESTADO = seditor.Estado,
-                                    DIRECCION1 = seditor.Direccion,
-                                    NOMBRECORTO = seditor.NombreCorto,
-                                    TELEFONO = seditor.Telefono
-                                    
-                                };
-                data.Suplidores.InsertOnSubmit(s);
-            }
-            //Modifica
+                model.supplier.Nombre = seditor.Nombre;
+                model.supplier.Ciudad = Convert.ToInt32(seditor.Ciudad);
+                model.supplier.Estado = seditor.Estado;
+                model.supplier.Estado = seditor.Direccion;
+                model.supplier.Nombrecorto = seditor.NombreCorto;
+                model.supplier.Telefono = seditor.Telefono;
+
+                return (model.add() == 1);
+                 
+
+            } 
+            //actualizacion de suplidor
             else
             {
-                var query = from suplidor in data.Suplidores
-                            where suplidor.CODIGO == seditor.ID
-                            select suplidor;
-
-                Suplidore s = query.First<Suplidore>();
-                s.NOMBRE = seditor.Nombre;
-                s.CIUDAD = seditor.Ciudad;
-                s.ESTADO = seditor.Estado;
-                s.DIRECCION1 = seditor.Direccion;
-                s.NOMBRECORTO = seditor.NombreCorto;
-                s.TELEFONO = seditor.Telefono;
+                model.supplier.Codigo = seditor.ID;
+                model.supplier.Nombre = seditor.Nombre;
+                model.supplier.Ciudad = Convert.ToInt32(seditor.Ciudad);
+                model.supplier.Estado = seditor.Estado;
+                model.supplier.Estado = seditor.Direccion;
+                model.supplier.Nombrecorto = seditor.NombreCorto;
+                model.supplier.Telefono = seditor.Telefono;
+                return model.update();
             }
-
-            data.SubmitChanges();
-            
         }
-        public void setUpdateFieldData(int id,string nombre,string ciudad,string estado,string telefono,string direccion,string nombrecoto)
+        public void setUpdateFieldData(int id,string nombre,int ciudad,string estado,string telefono,string direccion,string nombrecorto)
         {
             seditor.ID = id;
             seditor.Nombre = nombre;
@@ -73,19 +81,23 @@ namespace deliverywindows.controllers
             seditor.Estado = estado;
             seditor.Telefono = telefono;
             seditor.Direccion = direccion;
-            seditor.NombreCorto = nombrecoto;
+            seditor.NombreCorto = nombrecorto;
         }
+
+
         public void ToDGV()
         {
             var query = from suplidores in data.Suplidores
-                        select suplidores;
+                        select new { suplidores.CODIGO, suplidores.NOMBRE, CIUDAD = suplidores.Ciudade.NOMBRE,suplidores.ESTADO, suplidores.TELEFONO, suplidores.DIRECCION1,suplidores.NOMBRECORTO};
             smanager.DGV.DataSource = query;
             
         }
+
         public void setManager(SupplierManager mgr)
         {
             smanager = mgr;
         }
+
         public void setEditor(ref SupplierEditor edtr)
         {
             seditor = edtr;

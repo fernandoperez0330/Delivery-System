@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
 using System.Configuration;
+using deliverywindows.utils;
 
 namespace deliverywindows.config
 {
@@ -37,8 +38,7 @@ namespace deliverywindows.config
                 return true;
             }
             catch (Exception exc) {
-                //temporal para verificar cunado se realiza la conexion
-                Console.WriteLine(exc.Message);
+                Utils.logExceptionError(exc);
                 return false;
             }
         }

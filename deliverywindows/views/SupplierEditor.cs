@@ -12,29 +12,38 @@ using deliverywindows.models;
 namespace deliverywindows
 {
     using controllers;
+    using deliverywindows.entities;
+    using System.Collections;
+    using deliverywindows.utils;
 
     public partial class SupplierEditor : Form
     {
         DATABASEDataContext data;
         SupplierManage manage;
         int id = -1;
+        ModelSupplier model;
+        public SortedList arrCiudades;
 
         public SupplierEditor(ref SupplierManage m)
         {
             InitializeComponent();
             data = DataConexion.getInstance();
+            model = new ModelSupplier();
             manage = m;  
-            //ciudades
-            var ciudades = from c in data.Ciudades
-                           select c.NOMBRE;
-            ciudad.Items.AddRange(ciudades.ToArray());
-            ciudad.SelectedIndex = 0;
+            this.selectCiudad.DataSource = new ModelCountry().getAlltoSortedList().GetValueList();
+            try
+            {
+                selectCiudad.SelectedIndex = 0;
+            }
+            catch (Exception exc) {
+                Utils.logExceptionError(exc);
+            }
         }
 
         
         private void button2_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(this, "¿Desea cancelar esta solicitud?", "Agregar Suplidor", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show(this, "¿Desea cancelar esta solicitud?", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 this.Dispose();
             }
@@ -42,12 +51,33 @@ namespace deliverywindows
 
         private void button1_Click(object sender, EventArgs e)
         {
+
             if (validate())
             {
-                manage.Guardar();
-                MessageBox.Show(this, "El suplidor ha sido agregado correctamente", "Agregar Suplidor", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Dispose();
-                manage.ToDGV();
+                model.supplier.Codigo = this.ID;
+                model.supplier.Nombre = this.Nombre;
+                model.supplier.Ciudad = this.Ciudad;
+                model.supplier.Nombrecorto = this.NombreCorto;
+                model.supplier.Telefono = this.Telefono;
+                model.supplier.Estado = this.Estado;
+                model.supplier.Direccion = this.Direccion;
+
+                if (this.ID > 0) {
+                    if (model.update()) {
+                        MessageBox.Show(this, "El suplidor ha sido actualizado correctamente", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        manage.ToDGV();
+                        this.Dispose();
+                    }
+                }
+                else {
+                    if (model.add() == 1)
+                    {
+                        MessageBox.Show(this, "El suplidor ha sido agregado correctamente", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        manage.ToDGV();
+                        this.Dispose();
+                    }
+                }
+
             }
 
             else 
@@ -59,7 +89,7 @@ namespace deliverywindows
         bool validate() 
         {
             if (String.IsNullOrWhiteSpace(nombre.Text)) return false;
-            else if (String.IsNullOrWhiteSpace(ciudad.Text)) return false;
+            else if (String.IsNullOrWhiteSpace(selectCiudad.Text)) return false;
             else if (String.IsNullOrWhiteSpace(estado.Text)) return false;
             else if (String.IsNullOrWhiteSpace(telefono.Text)) return false;
             else if (String.IsNullOrWhiteSpace(direccion.Text)) return false;
@@ -98,19 +128,34 @@ namespace deliverywindows
             get { return estado.Text; }
         }
 
-        public string Ciudad
+        public int Ciudad
         {
             set
             {
-                for (int n = 0; n < ciudad.Items.Count - 1; n++)
+                for (int n = 0; n < selectCiudad.Items.Count - 1; n++)
                 {
-                    if (ciudad.Items[n].ToString() == value)
+                    if (Convert.ToInt32(arrCiudades.IndexOfValue(selectCiudad.SelectedItem.ToString())) == value)
                     {
-                        ciudad.SelectedIndex = n;
+                        selectCiudad.SelectedIndex = n;
                     }
                 }
             }
-            get { return ciudad.SelectedItem.ToString(); }
+            get {
+                int keyCiudad = arrCiudades.IndexOfValue(this.selectCiudad.SelectedItem);
+                return (int)arrCiudades.GetKey(keyCiudad);
+            }
+        }
+
+        //;
+
+        private void SupplierEditor_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

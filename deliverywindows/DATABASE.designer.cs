@@ -33,27 +33,33 @@ namespace deliverywindows
     partial void InsertCamione(Camione instance);
     partial void UpdateCamione(Camione instance);
     partial void DeleteCamione(Camione instance);
+    partial void InsertCiudade(Ciudade instance);
+    partial void UpdateCiudade(Ciudade instance);
+    partial void DeleteCiudade(Ciudade instance);
     partial void InsertCliente(Cliente instance);
     partial void UpdateCliente(Cliente instance);
     partial void DeleteCliente(Cliente instance);
-    partial void InsertSuplidore(Suplidore instance);
-    partial void UpdateSuplidore(Suplidore instance);
-    partial void DeleteSuplidore(Suplidore instance);
+    partial void InsertEmpleado(Empleado instance);
+    partial void UpdateEmpleado(Empleado instance);
+    partial void DeleteEmpleado(Empleado instance);
     partial void InsertOrdene(Ordene instance);
     partial void UpdateOrdene(Ordene instance);
     partial void DeleteOrdene(Ordene instance);
+    partial void InsertSuplidore(Suplidore instance);
+    partial void UpdateSuplidore(Suplidore instance);
+    partial void DeleteSuplidore(Suplidore instance);
+    partial void InsertTransacciones_Camione(Transacciones_Camione instance);
+    partial void UpdateTransacciones_Camione(Transacciones_Camione instance);
+    partial void DeleteTransacciones_Camione(Transacciones_Camione instance);
     partial void InsertUsuario(Usuario instance);
     partial void UpdateUsuario(Usuario instance);
     partial void DeleteUsuario(Usuario instance);
     partial void InsertViaje(Viaje instance);
     partial void UpdateViaje(Viaje instance);
     partial void DeleteViaje(Viaje instance);
-    partial void InsertEmpleado(Empleado instance);
-    partial void UpdateEmpleado(Empleado instance);
-    partial void DeleteEmpleado(Empleado instance);
-    partial void InsertCiudade(Ciudade instance);
-    partial void UpdateCiudade(Ciudade instance);
-    partial void DeleteCiudade(Ciudade instance);
+    partial void InsertViajes_Camion(Viajes_Camion instance);
+    partial void UpdateViajes_Camion(Viajes_Camion instance);
+    partial void DeleteViajes_Camion(Viajes_Camion instance);
     #endregion
 		
 		public DATABASEDataContext() : 
@@ -94,6 +100,14 @@ namespace deliverywindows
 			}
 		}
 		
+		public System.Data.Linq.Table<Ciudade> Ciudades
+		{
+			get
+			{
+				return this.GetTable<Ciudade>();
+			}
+		}
+		
 		public System.Data.Linq.Table<Cliente> Clientes
 		{
 			get
@@ -102,11 +116,11 @@ namespace deliverywindows
 			}
 		}
 		
-		public System.Data.Linq.Table<Suplidore> Suplidores
+		public System.Data.Linq.Table<Empleado> Empleados
 		{
 			get
 			{
-				return this.GetTable<Suplidore>();
+				return this.GetTable<Empleado>();
 			}
 		}
 		
@@ -115,6 +129,14 @@ namespace deliverywindows
 			get
 			{
 				return this.GetTable<Ordene>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Suplidore> Suplidores
+		{
+			get
+			{
+				return this.GetTable<Suplidore>();
 			}
 		}
 		
@@ -142,19 +164,11 @@ namespace deliverywindows
 			}
 		}
 		
-		public System.Data.Linq.Table<Empleado> Empleados
+		public System.Data.Linq.Table<Viajes_Camion> Viajes_Camions
 		{
 			get
 			{
-				return this.GetTable<Empleado>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Ciudade> Ciudades
-		{
-			get
-			{
-				return this.GetTable<Ciudade>();
+				return this.GetTable<Viajes_Camion>();
 			}
 		}
 	}
@@ -171,6 +185,8 @@ namespace deliverywindows
 		
 		private string _DESCRIPCION;
 		
+		private EntitySet<Viajes_Camion> _Viajes_Camions;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -185,6 +201,7 @@ namespace deliverywindows
 		
 		public Camione()
 		{
+			this._Viajes_Camions = new EntitySet<Viajes_Camion>(new Action<Viajes_Camion>(this.attach_Viajes_Camions), new Action<Viajes_Camion>(this.detach_Viajes_Camions));
 			OnCreated();
 		}
 		
@@ -248,6 +265,19 @@ namespace deliverywindows
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Camione_Viajes_Camion", Storage="_Viajes_Camions", ThisKey="CODIGO", OtherKey="CODIGOCAMION")]
+		public EntitySet<Viajes_Camion> Viajes_Camions
+		{
+			get
+			{
+				return this._Viajes_Camions;
+			}
+			set
+			{
+				this._Viajes_Camions.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -267,6 +297,208 @@ namespace deliverywindows
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
+		
+		private void attach_Viajes_Camions(Viajes_Camion entity)
+		{
+			this.SendPropertyChanging();
+			entity.Camione = this;
+		}
+		
+		private void detach_Viajes_Camions(Viajes_Camion entity)
+		{
+			this.SendPropertyChanging();
+			entity.Camione = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Ciudades")]
+	public partial class Ciudade : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _CODIGO;
+		
+		private string _NOMBRE;
+		
+		private string _DESCRIPCION;
+		
+		private string _ZIPCODE;
+		
+		private EntitySet<Cliente> _Clientes;
+		
+		private EntitySet<Suplidore> _Suplidores;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnCODIGOChanging(int value);
+    partial void OnCODIGOChanged();
+    partial void OnNOMBREChanging(string value);
+    partial void OnNOMBREChanged();
+    partial void OnDESCRIPCIONChanging(string value);
+    partial void OnDESCRIPCIONChanged();
+    partial void OnZIPCODEChanging(string value);
+    partial void OnZIPCODEChanged();
+    #endregion
+		
+		public Ciudade()
+		{
+			this._Clientes = new EntitySet<Cliente>(new Action<Cliente>(this.attach_Clientes), new Action<Cliente>(this.detach_Clientes));
+			this._Suplidores = new EntitySet<Suplidore>(new Action<Suplidore>(this.attach_Suplidores), new Action<Suplidore>(this.detach_Suplidores));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CODIGO", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int CODIGO
+		{
+			get
+			{
+				return this._CODIGO;
+			}
+			set
+			{
+				if ((this._CODIGO != value))
+				{
+					this.OnCODIGOChanging(value);
+					this.SendPropertyChanging();
+					this._CODIGO = value;
+					this.SendPropertyChanged("CODIGO");
+					this.OnCODIGOChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NOMBRE", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string NOMBRE
+		{
+			get
+			{
+				return this._NOMBRE;
+			}
+			set
+			{
+				if ((this._NOMBRE != value))
+				{
+					this.OnNOMBREChanging(value);
+					this.SendPropertyChanging();
+					this._NOMBRE = value;
+					this.SendPropertyChanged("NOMBRE");
+					this.OnNOMBREChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DESCRIPCION", DbType="NVarChar(100)")]
+		public string DESCRIPCION
+		{
+			get
+			{
+				return this._DESCRIPCION;
+			}
+			set
+			{
+				if ((this._DESCRIPCION != value))
+				{
+					this.OnDESCRIPCIONChanging(value);
+					this.SendPropertyChanging();
+					this._DESCRIPCION = value;
+					this.SendPropertyChanged("DESCRIPCION");
+					this.OnDESCRIPCIONChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ZIPCODE", DbType="NVarChar(10)")]
+		public string ZIPCODE
+		{
+			get
+			{
+				return this._ZIPCODE;
+			}
+			set
+			{
+				if ((this._ZIPCODE != value))
+				{
+					this.OnZIPCODEChanging(value);
+					this.SendPropertyChanging();
+					this._ZIPCODE = value;
+					this.SendPropertyChanged("ZIPCODE");
+					this.OnZIPCODEChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Ciudade_Cliente", Storage="_Clientes", ThisKey="CODIGO", OtherKey="CIUDAD")]
+		public EntitySet<Cliente> Clientes
+		{
+			get
+			{
+				return this._Clientes;
+			}
+			set
+			{
+				this._Clientes.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Ciudade_Suplidore", Storage="_Suplidores", ThisKey="CODIGO", OtherKey="CIUDAD")]
+		public EntitySet<Suplidore> Suplidores
+		{
+			get
+			{
+				return this._Suplidores;
+			}
+			set
+			{
+				this._Suplidores.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Clientes(Cliente entity)
+		{
+			this.SendPropertyChanging();
+			entity.Ciudade = this;
+		}
+		
+		private void detach_Clientes(Cliente entity)
+		{
+			this.SendPropertyChanging();
+			entity.Ciudade = null;
+		}
+		
+		private void attach_Suplidores(Suplidore entity)
+		{
+			this.SendPropertyChanging();
+			entity.Ciudade = this;
+		}
+		
+		private void detach_Suplidores(Suplidore entity)
+		{
+			this.SendPropertyChanging();
+			entity.Ciudade = null;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Clientes")]
@@ -283,9 +515,11 @@ namespace deliverywindows
 		
 		private string _DIRECCION2;
 		
-		private string _CIUDAD;
+		private int _CIUDAD;
 		
 		private string _TELEFONO;
+		
+		private EntityRef<Ciudade> _Ciudade;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -299,7 +533,7 @@ namespace deliverywindows
     partial void OnDIRECCION1Changed();
     partial void OnDIRECCION2Changing(string value);
     partial void OnDIRECCION2Changed();
-    partial void OnCIUDADChanging(string value);
+    partial void OnCIUDADChanging(int value);
     partial void OnCIUDADChanged();
     partial void OnTELEFONOChanging(string value);
     partial void OnTELEFONOChanged();
@@ -307,6 +541,7 @@ namespace deliverywindows
 		
 		public Cliente()
 		{
+			this._Ciudade = default(EntityRef<Ciudade>);
 			OnCreated();
 		}
 		
@@ -390,8 +625,8 @@ namespace deliverywindows
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CIUDAD", DbType="NVarChar(60) NOT NULL", CanBeNull=false)]
-		public string CIUDAD
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CIUDAD", DbType="Int NOT NULL")]
+		public int CIUDAD
 		{
 			get
 			{
@@ -401,6 +636,10 @@ namespace deliverywindows
 			{
 				if ((this._CIUDAD != value))
 				{
+					if (this._Ciudade.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnCIUDADChanging(value);
 					this.SendPropertyChanging();
 					this._CIUDAD = value;
@@ -410,7 +649,7 @@ namespace deliverywindows
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TELEFONO", DbType="NVarChar(11) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TELEFONO", DbType="NVarChar(16) NOT NULL", CanBeNull=false)]
 		public string TELEFONO
 		{
 			get
@@ -426,6 +665,40 @@ namespace deliverywindows
 					this._TELEFONO = value;
 					this.SendPropertyChanged("TELEFONO");
 					this.OnTELEFONOChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Ciudade_Cliente", Storage="_Ciudade", ThisKey="CIUDAD", OtherKey="CODIGO", IsForeignKey=true)]
+		public Ciudade Ciudade
+		{
+			get
+			{
+				return this._Ciudade.Entity;
+			}
+			set
+			{
+				Ciudade previousValue = this._Ciudade.Entity;
+				if (((previousValue != value) 
+							|| (this._Ciudade.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Ciudade.Entity = null;
+						previousValue.Clientes.Remove(this);
+					}
+					this._Ciudade.Entity = value;
+					if ((value != null))
+					{
+						value.Clientes.Add(this);
+						this._CIUDAD = value.CODIGO;
+					}
+					else
+					{
+						this._CIUDAD = default(int);
+					}
+					this.SendPropertyChanged("Ciudade");
 				}
 			}
 		}
@@ -451,27 +724,27 @@ namespace deliverywindows
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Suplidores")]
-	public partial class Suplidore : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Empleados")]
+	public partial class Empleado : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private int _CODIGO;
 		
+		private System.Nullable<int> _CODIGOSUPERVISOR;
+		
 		private string _NOMBRE;
+		
+		private string _DIRECCION;
 		
 		private string _CIUDAD;
 		
-		private string _ESTADO;
-		
 		private string _TELEFONO;
 		
-		private string _DIRECCION1;
+		private int _TIPO;
 		
-		private string _NOMBRECORTO;
-		
-		private EntitySet<Ordene> _Ordenes;
+		private EntitySet<Viajes_Camion> _Viajes_Camions;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -479,23 +752,23 @@ namespace deliverywindows
     partial void OnCreated();
     partial void OnCODIGOChanging(int value);
     partial void OnCODIGOChanged();
+    partial void OnCODIGOSUPERVISORChanging(System.Nullable<int> value);
+    partial void OnCODIGOSUPERVISORChanged();
     partial void OnNOMBREChanging(string value);
     partial void OnNOMBREChanged();
+    partial void OnDIRECCIONChanging(string value);
+    partial void OnDIRECCIONChanged();
     partial void OnCIUDADChanging(string value);
     partial void OnCIUDADChanged();
-    partial void OnESTADOChanging(string value);
-    partial void OnESTADOChanged();
     partial void OnTELEFONOChanging(string value);
     partial void OnTELEFONOChanged();
-    partial void OnDIRECCION1Changing(string value);
-    partial void OnDIRECCION1Changed();
-    partial void OnNOMBRECORTOChanging(string value);
-    partial void OnNOMBRECORTOChanged();
+    partial void OnTIPOChanging(int value);
+    partial void OnTIPOChanged();
     #endregion
 		
-		public Suplidore()
+		public Empleado()
 		{
-			this._Ordenes = new EntitySet<Ordene>(new Action<Ordene>(this.attach_Ordenes), new Action<Ordene>(this.detach_Ordenes));
+			this._Viajes_Camions = new EntitySet<Viajes_Camion>(new Action<Viajes_Camion>(this.attach_Viajes_Camions), new Action<Viajes_Camion>(this.detach_Viajes_Camions));
 			OnCreated();
 		}
 		
@@ -519,7 +792,27 @@ namespace deliverywindows
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NOMBRE", DbType="NVarChar(60) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CODIGOSUPERVISOR", DbType="Int")]
+		public System.Nullable<int> CODIGOSUPERVISOR
+		{
+			get
+			{
+				return this._CODIGOSUPERVISOR;
+			}
+			set
+			{
+				if ((this._CODIGOSUPERVISOR != value))
+				{
+					this.OnCODIGOSUPERVISORChanging(value);
+					this.SendPropertyChanging();
+					this._CODIGOSUPERVISOR = value;
+					this.SendPropertyChanged("CODIGOSUPERVISOR");
+					this.OnCODIGOSUPERVISORChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NOMBRE", DbType="NVarChar(25) NOT NULL", CanBeNull=false)]
 		public string NOMBRE
 		{
 			get
@@ -539,7 +832,27 @@ namespace deliverywindows
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CIUDAD", DbType="NVarChar(60) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DIRECCION", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		public string DIRECCION
+		{
+			get
+			{
+				return this._DIRECCION;
+			}
+			set
+			{
+				if ((this._DIRECCION != value))
+				{
+					this.OnDIRECCIONChanging(value);
+					this.SendPropertyChanging();
+					this._DIRECCION = value;
+					this.SendPropertyChanged("DIRECCION");
+					this.OnDIRECCIONChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CIUDAD", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
 		public string CIUDAD
 		{
 			get
@@ -559,27 +872,7 @@ namespace deliverywindows
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ESTADO", DbType="NVarChar(60) NOT NULL", CanBeNull=false)]
-		public string ESTADO
-		{
-			get
-			{
-				return this._ESTADO;
-			}
-			set
-			{
-				if ((this._ESTADO != value))
-				{
-					this.OnESTADOChanging(value);
-					this.SendPropertyChanging();
-					this._ESTADO = value;
-					this.SendPropertyChanged("ESTADO");
-					this.OnESTADOChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TELEFONO", DbType="NVarChar(14) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TELEFONO", DbType="NVarChar(16) NOT NULL", CanBeNull=false)]
 		public string TELEFONO
 		{
 			get
@@ -599,56 +892,36 @@ namespace deliverywindows
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DIRECCION1", DbType="Text NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		public string DIRECCION1
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TIPO", DbType="Int NOT NULL")]
+		public int TIPO
 		{
 			get
 			{
-				return this._DIRECCION1;
+				return this._TIPO;
 			}
 			set
 			{
-				if ((this._DIRECCION1 != value))
+				if ((this._TIPO != value))
 				{
-					this.OnDIRECCION1Changing(value);
+					this.OnTIPOChanging(value);
 					this.SendPropertyChanging();
-					this._DIRECCION1 = value;
-					this.SendPropertyChanged("DIRECCION1");
-					this.OnDIRECCION1Changed();
+					this._TIPO = value;
+					this.SendPropertyChanged("TIPO");
+					this.OnTIPOChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NOMBRECORTO", DbType="NVarChar(10)")]
-		public string NOMBRECORTO
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Empleado_Viajes_Camion", Storage="_Viajes_Camions", ThisKey="CODIGO", OtherKey="CODIGOEMPLEADO")]
+		public EntitySet<Viajes_Camion> Viajes_Camions
 		{
 			get
 			{
-				return this._NOMBRECORTO;
+				return this._Viajes_Camions;
 			}
 			set
 			{
-				if ((this._NOMBRECORTO != value))
-				{
-					this.OnNOMBRECORTOChanging(value);
-					this.SendPropertyChanging();
-					this._NOMBRECORTO = value;
-					this.SendPropertyChanged("NOMBRECORTO");
-					this.OnNOMBRECORTOChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Suplidore_Ordene", Storage="_Ordenes", ThisKey="CODIGO", OtherKey="CODIGOSUPLIDOR")]
-		public EntitySet<Ordene> Ordenes
-		{
-			get
-			{
-				return this._Ordenes;
-			}
-			set
-			{
-				this._Ordenes.Assign(value);
+				this._Viajes_Camions.Assign(value);
 			}
 		}
 		
@@ -672,16 +945,16 @@ namespace deliverywindows
 			}
 		}
 		
-		private void attach_Ordenes(Ordene entity)
+		private void attach_Viajes_Camions(Viajes_Camion entity)
 		{
 			this.SendPropertyChanging();
-			entity.Suplidore = this;
+			entity.Empleado = this;
 		}
 		
-		private void detach_Ordenes(Ordene entity)
+		private void detach_Viajes_Camions(Viajes_Camion entity)
 		{
 			this.SendPropertyChanging();
-			entity.Suplidore = null;
+			entity.Empleado = null;
 		}
 	}
 	
@@ -694,6 +967,8 @@ namespace deliverywindows
 		private int _CODIGO;
 		
 		private int _CODIGOSUPLIDOR;
+		
+		private int _CODIGOCLIENTE;
 		
 		private int _CODIGOVIAJE;
 		
@@ -715,9 +990,9 @@ namespace deliverywindows
 		
 		private System.Data.Linq.Binary _FIRMAENTREGA;
 		
-		private EntityRef<Suplidore> _Suplidore;
+		private EntitySet<Transacciones_Camione> _Transacciones_Camiones;
 		
-		private EntityRef<Viaje> _Viaje;
+		private EntityRef<Suplidore> _Suplidore;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -727,6 +1002,8 @@ namespace deliverywindows
     partial void OnCODIGOChanged();
     partial void OnCODIGOSUPLIDORChanging(int value);
     partial void OnCODIGOSUPLIDORChanged();
+    partial void OnCODIGOCLIENTEChanging(int value);
+    partial void OnCODIGOCLIENTEChanged();
     partial void OnCODIGOVIAJEChanging(int value);
     partial void OnCODIGOVIAJEChanged();
     partial void OnFECHAORDENChanging(System.DateTime value);
@@ -751,8 +1028,8 @@ namespace deliverywindows
 		
 		public Ordene()
 		{
+			this._Transacciones_Camiones = new EntitySet<Transacciones_Camione>(new Action<Transacciones_Camione>(this.attach_Transacciones_Camiones), new Action<Transacciones_Camione>(this.detach_Transacciones_Camiones));
 			this._Suplidore = default(EntityRef<Suplidore>);
-			this._Viaje = default(EntityRef<Viaje>);
 			OnCreated();
 		}
 		
@@ -800,6 +1077,26 @@ namespace deliverywindows
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CODIGOCLIENTE", DbType="Int NOT NULL")]
+		public int CODIGOCLIENTE
+		{
+			get
+			{
+				return this._CODIGOCLIENTE;
+			}
+			set
+			{
+				if ((this._CODIGOCLIENTE != value))
+				{
+					this.OnCODIGOCLIENTEChanging(value);
+					this.SendPropertyChanging();
+					this._CODIGOCLIENTE = value;
+					this.SendPropertyChanged("CODIGOCLIENTE");
+					this.OnCODIGOCLIENTEChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CODIGOVIAJE", DbType="Int NOT NULL")]
 		public int CODIGOVIAJE
 		{
@@ -811,10 +1108,6 @@ namespace deliverywindows
 			{
 				if ((this._CODIGOVIAJE != value))
 				{
-					if (this._Viaje.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
 					this.OnCODIGOVIAJEChanging(value);
 					this.SendPropertyChanging();
 					this._CODIGOVIAJE = value;
@@ -984,7 +1277,7 @@ namespace deliverywindows
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FIRMAENTREGA", DbType="Binary(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FIRMAENTREGA", DbType="Binary(50)", UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary FIRMAENTREGA
 		{
 			get
@@ -1001,6 +1294,19 @@ namespace deliverywindows
 					this.SendPropertyChanged("FIRMAENTREGA");
 					this.OnFIRMAENTREGAChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Ordene_Transacciones_Camione", Storage="_Transacciones_Camiones", ThisKey="CODIGO", OtherKey="CODIGOORDEN")]
+		public EntitySet<Transacciones_Camione> Transacciones_Camiones
+		{
+			get
+			{
+				return this._Transacciones_Camiones;
+			}
+			set
+			{
+				this._Transacciones_Camiones.Assign(value);
 			}
 		}
 		
@@ -1038,36 +1344,277 @@ namespace deliverywindows
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Viaje_Ordene", Storage="_Viaje", ThisKey="CODIGOVIAJE", OtherKey="CODIGO", IsForeignKey=true)]
-		public Viaje Viaje
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Transacciones_Camiones(Transacciones_Camione entity)
+		{
+			this.SendPropertyChanging();
+			entity.Ordene = this;
+		}
+		
+		private void detach_Transacciones_Camiones(Transacciones_Camione entity)
+		{
+			this.SendPropertyChanging();
+			entity.Ordene = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Suplidores")]
+	public partial class Suplidore : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _CODIGO;
+		
+		private string _NOMBRE;
+		
+		private int _CIUDAD;
+		
+		private string _ESTADO;
+		
+		private string _TELEFONO;
+		
+		private string _DIRECCION1;
+		
+		private string _NOMBRECORTO;
+		
+		private EntitySet<Ordene> _Ordenes;
+		
+		private EntityRef<Ciudade> _Ciudade;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnCODIGOChanging(int value);
+    partial void OnCODIGOChanged();
+    partial void OnNOMBREChanging(string value);
+    partial void OnNOMBREChanged();
+    partial void OnCIUDADChanging(int value);
+    partial void OnCIUDADChanged();
+    partial void OnESTADOChanging(string value);
+    partial void OnESTADOChanged();
+    partial void OnTELEFONOChanging(string value);
+    partial void OnTELEFONOChanged();
+    partial void OnDIRECCION1Changing(string value);
+    partial void OnDIRECCION1Changed();
+    partial void OnNOMBRECORTOChanging(string value);
+    partial void OnNOMBRECORTOChanged();
+    #endregion
+		
+		public Suplidore()
+		{
+			this._Ordenes = new EntitySet<Ordene>(new Action<Ordene>(this.attach_Ordenes), new Action<Ordene>(this.detach_Ordenes));
+			this._Ciudade = default(EntityRef<Ciudade>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CODIGO", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int CODIGO
 		{
 			get
 			{
-				return this._Viaje.Entity;
+				return this._CODIGO;
 			}
 			set
 			{
-				Viaje previousValue = this._Viaje.Entity;
+				if ((this._CODIGO != value))
+				{
+					this.OnCODIGOChanging(value);
+					this.SendPropertyChanging();
+					this._CODIGO = value;
+					this.SendPropertyChanged("CODIGO");
+					this.OnCODIGOChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NOMBRE", DbType="NVarChar(60) NOT NULL", CanBeNull=false)]
+		public string NOMBRE
+		{
+			get
+			{
+				return this._NOMBRE;
+			}
+			set
+			{
+				if ((this._NOMBRE != value))
+				{
+					this.OnNOMBREChanging(value);
+					this.SendPropertyChanging();
+					this._NOMBRE = value;
+					this.SendPropertyChanged("NOMBRE");
+					this.OnNOMBREChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CIUDAD", DbType="Int NOT NULL")]
+		public int CIUDAD
+		{
+			get
+			{
+				return this._CIUDAD;
+			}
+			set
+			{
+				if ((this._CIUDAD != value))
+				{
+					if (this._Ciudade.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCIUDADChanging(value);
+					this.SendPropertyChanging();
+					this._CIUDAD = value;
+					this.SendPropertyChanged("CIUDAD");
+					this.OnCIUDADChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ESTADO", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string ESTADO
+		{
+			get
+			{
+				return this._ESTADO;
+			}
+			set
+			{
+				if ((this._ESTADO != value))
+				{
+					this.OnESTADOChanging(value);
+					this.SendPropertyChanging();
+					this._ESTADO = value;
+					this.SendPropertyChanged("ESTADO");
+					this.OnESTADOChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TELEFONO", DbType="NVarChar(14) NOT NULL", CanBeNull=false)]
+		public string TELEFONO
+		{
+			get
+			{
+				return this._TELEFONO;
+			}
+			set
+			{
+				if ((this._TELEFONO != value))
+				{
+					this.OnTELEFONOChanging(value);
+					this.SendPropertyChanging();
+					this._TELEFONO = value;
+					this.SendPropertyChanged("TELEFONO");
+					this.OnTELEFONOChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DIRECCION1", DbType="Text NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string DIRECCION1
+		{
+			get
+			{
+				return this._DIRECCION1;
+			}
+			set
+			{
+				if ((this._DIRECCION1 != value))
+				{
+					this.OnDIRECCION1Changing(value);
+					this.SendPropertyChanging();
+					this._DIRECCION1 = value;
+					this.SendPropertyChanged("DIRECCION1");
+					this.OnDIRECCION1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NOMBRECORTO", DbType="NVarChar(10)")]
+		public string NOMBRECORTO
+		{
+			get
+			{
+				return this._NOMBRECORTO;
+			}
+			set
+			{
+				if ((this._NOMBRECORTO != value))
+				{
+					this.OnNOMBRECORTOChanging(value);
+					this.SendPropertyChanging();
+					this._NOMBRECORTO = value;
+					this.SendPropertyChanged("NOMBRECORTO");
+					this.OnNOMBRECORTOChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Suplidore_Ordene", Storage="_Ordenes", ThisKey="CODIGO", OtherKey="CODIGOSUPLIDOR")]
+		public EntitySet<Ordene> Ordenes
+		{
+			get
+			{
+				return this._Ordenes;
+			}
+			set
+			{
+				this._Ordenes.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Ciudade_Suplidore", Storage="_Ciudade", ThisKey="CIUDAD", OtherKey="CODIGO", IsForeignKey=true)]
+		public Ciudade Ciudade
+		{
+			get
+			{
+				return this._Ciudade.Entity;
+			}
+			set
+			{
+				Ciudade previousValue = this._Ciudade.Entity;
 				if (((previousValue != value) 
-							|| (this._Viaje.HasLoadedOrAssignedValue == false)))
+							|| (this._Ciudade.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._Viaje.Entity = null;
-						previousValue.Ordenes.Remove(this);
+						this._Ciudade.Entity = null;
+						previousValue.Suplidores.Remove(this);
 					}
-					this._Viaje.Entity = value;
+					this._Ciudade.Entity = value;
 					if ((value != null))
 					{
-						value.Ordenes.Add(this);
-						this._CODIGOVIAJE = value.CODIGO;
+						value.Suplidores.Add(this);
+						this._CIUDAD = value.CODIGO;
 					}
 					else
 					{
-						this._CODIGOVIAJE = default(int);
+						this._CIUDAD = default(int);
 					}
-					this.SendPropertyChanged("Viaje");
+					this.SendPropertyChanged("Ciudade");
 				}
 			}
 		}
@@ -1091,29 +1638,85 @@ namespace deliverywindows
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
+		
+		private void attach_Ordenes(Ordene entity)
+		{
+			this.SendPropertyChanging();
+			entity.Suplidore = this;
+		}
+		
+		private void detach_Ordenes(Ordene entity)
+		{
+			this.SendPropertyChanging();
+			entity.Suplidore = null;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Transacciones_Camiones")]
-	public partial class Transacciones_Camione
+	public partial class Transacciones_Camione : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
-		private int _CODIGOVIAJE;
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _CODIGOCAMION;
+		private int _CODIGOORDEN;
+		
+		private int _CODIGOVIAJE;
 		
 		private decimal _ODOMETRO;
 		
 		private System.DateTime _FECHATRANSACCION;
 		
-		private int _CODIGOEMPLEADO;
-		
 		private System.Data.Linq.Binary _FIRMA;
+		
+		private EntityRef<Ordene> _Ordene;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnCODIGOORDENChanging(int value);
+    partial void OnCODIGOORDENChanged();
+    partial void OnCODIGOVIAJEChanging(int value);
+    partial void OnCODIGOVIAJEChanged();
+    partial void OnODOMETROChanging(decimal value);
+    partial void OnODOMETROChanged();
+    partial void OnFECHATRANSACCIONChanging(System.DateTime value);
+    partial void OnFECHATRANSACCIONChanged();
+    partial void OnFIRMAChanging(System.Data.Linq.Binary value);
+    partial void OnFIRMAChanged();
+    #endregion
 		
 		public Transacciones_Camione()
 		{
+			this._Ordene = default(EntityRef<Ordene>);
+			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CODIGOVIAJE", DbType="Int NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CODIGOORDEN", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int CODIGOORDEN
+		{
+			get
+			{
+				return this._CODIGOORDEN;
+			}
+			set
+			{
+				if ((this._CODIGOORDEN != value))
+				{
+					if (this._Ordene.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCODIGOORDENChanging(value);
+					this.SendPropertyChanging();
+					this._CODIGOORDEN = value;
+					this.SendPropertyChanged("CODIGOORDEN");
+					this.OnCODIGOORDENChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CODIGOVIAJE", DbType="Int NOT NULL", IsPrimaryKey=true)]
 		public int CODIGOVIAJE
 		{
 			get
@@ -1124,23 +1727,11 @@ namespace deliverywindows
 			{
 				if ((this._CODIGOVIAJE != value))
 				{
+					this.OnCODIGOVIAJEChanging(value);
+					this.SendPropertyChanging();
 					this._CODIGOVIAJE = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CODIGOCAMION", DbType="Int NOT NULL")]
-		public int CODIGOCAMION
-		{
-			get
-			{
-				return this._CODIGOCAMION;
-			}
-			set
-			{
-				if ((this._CODIGOCAMION != value))
-				{
-					this._CODIGOCAMION = value;
+					this.SendPropertyChanged("CODIGOVIAJE");
+					this.OnCODIGOVIAJEChanged();
 				}
 			}
 		}
@@ -1156,7 +1747,11 @@ namespace deliverywindows
 			{
 				if ((this._ODOMETRO != value))
 				{
+					this.OnODOMETROChanging(value);
+					this.SendPropertyChanging();
 					this._ODOMETRO = value;
+					this.SendPropertyChanged("ODOMETRO");
+					this.OnODOMETROChanged();
 				}
 			}
 		}
@@ -1172,23 +1767,11 @@ namespace deliverywindows
 			{
 				if ((this._FECHATRANSACCION != value))
 				{
+					this.OnFECHATRANSACCIONChanging(value);
+					this.SendPropertyChanging();
 					this._FECHATRANSACCION = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CODIGOEMPLEADO", DbType="Int NOT NULL")]
-		public int CODIGOEMPLEADO
-		{
-			get
-			{
-				return this._CODIGOEMPLEADO;
-			}
-			set
-			{
-				if ((this._CODIGOEMPLEADO != value))
-				{
-					this._CODIGOEMPLEADO = value;
+					this.SendPropertyChanged("FECHATRANSACCION");
+					this.OnFECHATRANSACCIONChanged();
 				}
 			}
 		}
@@ -1204,8 +1787,66 @@ namespace deliverywindows
 			{
 				if ((this._FIRMA != value))
 				{
+					this.OnFIRMAChanging(value);
+					this.SendPropertyChanging();
 					this._FIRMA = value;
+					this.SendPropertyChanged("FIRMA");
+					this.OnFIRMAChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Ordene_Transacciones_Camione", Storage="_Ordene", ThisKey="CODIGOORDEN", OtherKey="CODIGO", IsForeignKey=true)]
+		public Ordene Ordene
+		{
+			get
+			{
+				return this._Ordene.Entity;
+			}
+			set
+			{
+				Ordene previousValue = this._Ordene.Entity;
+				if (((previousValue != value) 
+							|| (this._Ordene.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Ordene.Entity = null;
+						previousValue.Transacciones_Camiones.Remove(this);
+					}
+					this._Ordene.Entity = value;
+					if ((value != null))
+					{
+						value.Transacciones_Camiones.Add(this);
+						this._CODIGOORDEN = value.CODIGO;
+					}
+					else
+					{
+						this._CODIGOORDEN = default(int);
+					}
+					this.SendPropertyChanged("Ordene");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
@@ -1380,7 +2021,7 @@ namespace deliverywindows
 		
 		private int _ESTATUS;
 		
-		private EntitySet<Ordene> _Ordenes;
+		private EntityRef<Viajes_Camion> _Viajes_Camion;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1396,7 +2037,7 @@ namespace deliverywindows
 		
 		public Viaje()
 		{
-			this._Ordenes = new EntitySet<Ordene>(new Action<Ordene>(this.attach_Ordenes), new Action<Ordene>(this.detach_Ordenes));
+			this._Viajes_Camion = default(EntityRef<Viajes_Camion>);
 			OnCreated();
 		}
 		
@@ -1460,209 +2101,31 @@ namespace deliverywindows
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Viaje_Ordene", Storage="_Ordenes", ThisKey="CODIGO", OtherKey="CODIGOVIAJE")]
-		public EntitySet<Ordene> Ordenes
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Viaje_Viajes_Camion", Storage="_Viajes_Camion", ThisKey="CODIGO", OtherKey="CODIGOVIAJE", IsUnique=true, IsForeignKey=false)]
+		public Viajes_Camion Viajes_Camion
 		{
 			get
 			{
-				return this._Ordenes;
+				return this._Viajes_Camion.Entity;
 			}
 			set
 			{
-				this._Ordenes.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Ordenes(Ordene entity)
-		{
-			this.SendPropertyChanging();
-			entity.Viaje = this;
-		}
-		
-		private void detach_Ordenes(Ordene entity)
-		{
-			this.SendPropertyChanging();
-			entity.Viaje = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Empleados")]
-	public partial class Empleado : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _CODIGO;
-		
-		private System.Nullable<int> _CODIGOSUPERVISOR;
-		
-		private string _NOMBRE;
-		
-		private string _DIRECCION;
-		
-		private string _CIUDAD;
-		
-		private string _TELEFONO;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnCODIGOChanging(int value);
-    partial void OnCODIGOChanged();
-    partial void OnCODIGOSUPERVISORChanging(System.Nullable<int> value);
-    partial void OnCODIGOSUPERVISORChanged();
-    partial void OnNOMBREChanging(string value);
-    partial void OnNOMBREChanged();
-    partial void OnDIRECCIONChanging(string value);
-    partial void OnDIRECCIONChanged();
-    partial void OnCIUDADChanging(string value);
-    partial void OnCIUDADChanged();
-    partial void OnTELEFONOChanging(string value);
-    partial void OnTELEFONOChanged();
-    #endregion
-		
-		public Empleado()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CODIGO", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int CODIGO
-		{
-			get
-			{
-				return this._CODIGO;
-			}
-			set
-			{
-				if ((this._CODIGO != value))
+				Viajes_Camion previousValue = this._Viajes_Camion.Entity;
+				if (((previousValue != value) 
+							|| (this._Viajes_Camion.HasLoadedOrAssignedValue == false)))
 				{
-					this.OnCODIGOChanging(value);
 					this.SendPropertyChanging();
-					this._CODIGO = value;
-					this.SendPropertyChanged("CODIGO");
-					this.OnCODIGOChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CODIGOSUPERVISOR", DbType="Int")]
-		public System.Nullable<int> CODIGOSUPERVISOR
-		{
-			get
-			{
-				return this._CODIGOSUPERVISOR;
-			}
-			set
-			{
-				if ((this._CODIGOSUPERVISOR != value))
-				{
-					this.OnCODIGOSUPERVISORChanging(value);
-					this.SendPropertyChanging();
-					this._CODIGOSUPERVISOR = value;
-					this.SendPropertyChanged("CODIGOSUPERVISOR");
-					this.OnCODIGOSUPERVISORChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NOMBRE", DbType="NVarChar(25) NOT NULL", CanBeNull=false)]
-		public string NOMBRE
-		{
-			get
-			{
-				return this._NOMBRE;
-			}
-			set
-			{
-				if ((this._NOMBRE != value))
-				{
-					this.OnNOMBREChanging(value);
-					this.SendPropertyChanging();
-					this._NOMBRE = value;
-					this.SendPropertyChanged("NOMBRE");
-					this.OnNOMBREChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DIRECCION", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
-		public string DIRECCION
-		{
-			get
-			{
-				return this._DIRECCION;
-			}
-			set
-			{
-				if ((this._DIRECCION != value))
-				{
-					this.OnDIRECCIONChanging(value);
-					this.SendPropertyChanging();
-					this._DIRECCION = value;
-					this.SendPropertyChanged("DIRECCION");
-					this.OnDIRECCIONChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CIUDAD", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string CIUDAD
-		{
-			get
-			{
-				return this._CIUDAD;
-			}
-			set
-			{
-				if ((this._CIUDAD != value))
-				{
-					this.OnCIUDADChanging(value);
-					this.SendPropertyChanging();
-					this._CIUDAD = value;
-					this.SendPropertyChanged("CIUDAD");
-					this.OnCIUDADChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TELEFONO", DbType="NVarChar(16) NOT NULL", CanBeNull=false)]
-		public string TELEFONO
-		{
-			get
-			{
-				return this._TELEFONO;
-			}
-			set
-			{
-				if ((this._TELEFONO != value))
-				{
-					this.OnTELEFONOChanging(value);
-					this.SendPropertyChanging();
-					this._TELEFONO = value;
-					this.SendPropertyChanged("TELEFONO");
-					this.OnTELEFONOChanged();
+					if ((previousValue != null))
+					{
+						this._Viajes_Camion.Entity = null;
+						previousValue.Viaje = null;
+					}
+					this._Viajes_Camion.Entity = value;
+					if ((value != null))
+					{
+						value.Viaje = this;
+					}
+					this.SendPropertyChanged("Viajes_Camion");
 				}
 			}
 		}
@@ -1688,115 +2151,214 @@ namespace deliverywindows
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Ciudades")]
-	public partial class Ciudade : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Viajes_Camion")]
+	public partial class Viajes_Camion : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _CODIGO;
+		private int _CODIGOVIAJE;
 		
-		private string _NOMBRE;
+		private int _CODIGOCAMION;
 		
-		private string _DESCRIPCION;
+		private int _CODIGOEMPLEADO;
 		
-		private string _ZIPCODE;
+		private EntityRef<Camione> _Camione;
+		
+		private EntityRef<Empleado> _Empleado;
+		
+		private EntityRef<Viaje> _Viaje;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnCODIGOChanging(int value);
-    partial void OnCODIGOChanged();
-    partial void OnNOMBREChanging(string value);
-    partial void OnNOMBREChanged();
-    partial void OnDESCRIPCIONChanging(string value);
-    partial void OnDESCRIPCIONChanged();
-    partial void OnZIPCODEChanging(string value);
-    partial void OnZIPCODEChanged();
+    partial void OnCODIGOVIAJEChanging(int value);
+    partial void OnCODIGOVIAJEChanged();
+    partial void OnCODIGOCAMIONChanging(int value);
+    partial void OnCODIGOCAMIONChanged();
+    partial void OnCODIGOEMPLEADOChanging(int value);
+    partial void OnCODIGOEMPLEADOChanged();
     #endregion
 		
-		public Ciudade()
+		public Viajes_Camion()
 		{
+			this._Camione = default(EntityRef<Camione>);
+			this._Empleado = default(EntityRef<Empleado>);
+			this._Viaje = default(EntityRef<Viaje>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CODIGO", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int CODIGO
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CODIGOVIAJE", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int CODIGOVIAJE
 		{
 			get
 			{
-				return this._CODIGO;
+				return this._CODIGOVIAJE;
 			}
 			set
 			{
-				if ((this._CODIGO != value))
+				if ((this._CODIGOVIAJE != value))
 				{
-					this.OnCODIGOChanging(value);
+					if (this._Viaje.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCODIGOVIAJEChanging(value);
 					this.SendPropertyChanging();
-					this._CODIGO = value;
-					this.SendPropertyChanged("CODIGO");
-					this.OnCODIGOChanged();
+					this._CODIGOVIAJE = value;
+					this.SendPropertyChanged("CODIGOVIAJE");
+					this.OnCODIGOVIAJEChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NOMBRE", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string NOMBRE
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CODIGOCAMION", DbType="Int NOT NULL")]
+		public int CODIGOCAMION
 		{
 			get
 			{
-				return this._NOMBRE;
+				return this._CODIGOCAMION;
 			}
 			set
 			{
-				if ((this._NOMBRE != value))
+				if ((this._CODIGOCAMION != value))
 				{
-					this.OnNOMBREChanging(value);
+					if (this._Camione.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCODIGOCAMIONChanging(value);
 					this.SendPropertyChanging();
-					this._NOMBRE = value;
-					this.SendPropertyChanged("NOMBRE");
-					this.OnNOMBREChanged();
+					this._CODIGOCAMION = value;
+					this.SendPropertyChanged("CODIGOCAMION");
+					this.OnCODIGOCAMIONChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DESCRIPCION", DbType="NVarChar(100)")]
-		public string DESCRIPCION
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CODIGOEMPLEADO", DbType="Int NOT NULL")]
+		public int CODIGOEMPLEADO
 		{
 			get
 			{
-				return this._DESCRIPCION;
+				return this._CODIGOEMPLEADO;
 			}
 			set
 			{
-				if ((this._DESCRIPCION != value))
+				if ((this._CODIGOEMPLEADO != value))
 				{
-					this.OnDESCRIPCIONChanging(value);
+					if (this._Empleado.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCODIGOEMPLEADOChanging(value);
 					this.SendPropertyChanging();
-					this._DESCRIPCION = value;
-					this.SendPropertyChanged("DESCRIPCION");
-					this.OnDESCRIPCIONChanged();
+					this._CODIGOEMPLEADO = value;
+					this.SendPropertyChanged("CODIGOEMPLEADO");
+					this.OnCODIGOEMPLEADOChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ZIPCODE", DbType="NVarChar(10)")]
-		public string ZIPCODE
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Camione_Viajes_Camion", Storage="_Camione", ThisKey="CODIGOCAMION", OtherKey="CODIGO", IsForeignKey=true)]
+		public Camione Camione
 		{
 			get
 			{
-				return this._ZIPCODE;
+				return this._Camione.Entity;
 			}
 			set
 			{
-				if ((this._ZIPCODE != value))
+				Camione previousValue = this._Camione.Entity;
+				if (((previousValue != value) 
+							|| (this._Camione.HasLoadedOrAssignedValue == false)))
 				{
-					this.OnZIPCODEChanging(value);
 					this.SendPropertyChanging();
-					this._ZIPCODE = value;
-					this.SendPropertyChanged("ZIPCODE");
-					this.OnZIPCODEChanged();
+					if ((previousValue != null))
+					{
+						this._Camione.Entity = null;
+						previousValue.Viajes_Camions.Remove(this);
+					}
+					this._Camione.Entity = value;
+					if ((value != null))
+					{
+						value.Viajes_Camions.Add(this);
+						this._CODIGOCAMION = value.CODIGO;
+					}
+					else
+					{
+						this._CODIGOCAMION = default(int);
+					}
+					this.SendPropertyChanged("Camione");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Empleado_Viajes_Camion", Storage="_Empleado", ThisKey="CODIGOEMPLEADO", OtherKey="CODIGO", IsForeignKey=true)]
+		public Empleado Empleado
+		{
+			get
+			{
+				return this._Empleado.Entity;
+			}
+			set
+			{
+				Empleado previousValue = this._Empleado.Entity;
+				if (((previousValue != value) 
+							|| (this._Empleado.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Empleado.Entity = null;
+						previousValue.Viajes_Camions.Remove(this);
+					}
+					this._Empleado.Entity = value;
+					if ((value != null))
+					{
+						value.Viajes_Camions.Add(this);
+						this._CODIGOEMPLEADO = value.CODIGO;
+					}
+					else
+					{
+						this._CODIGOEMPLEADO = default(int);
+					}
+					this.SendPropertyChanged("Empleado");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Viaje_Viajes_Camion", Storage="_Viaje", ThisKey="CODIGOVIAJE", OtherKey="CODIGO", IsForeignKey=true)]
+		public Viaje Viaje
+		{
+			get
+			{
+				return this._Viaje.Entity;
+			}
+			set
+			{
+				Viaje previousValue = this._Viaje.Entity;
+				if (((previousValue != value) 
+							|| (this._Viaje.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Viaje.Entity = null;
+						previousValue.Viajes_Camion = null;
+					}
+					this._Viaje.Entity = value;
+					if ((value != null))
+					{
+						value.Viajes_Camion = this;
+						this._CODIGOVIAJE = value.CODIGO;
+					}
+					else
+					{
+						this._CODIGOVIAJE = default(int);
+					}
+					this.SendPropertyChanged("Viaje");
 				}
 			}
 		}

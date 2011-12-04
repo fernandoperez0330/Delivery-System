@@ -9,12 +9,12 @@ namespace deliverywindows.controllers
 
     public class UsuariosManage:ManagersInterface
     {
-        UsersManager umanager;
+        //UsersManager umanager;
 
-        public UsuariosManage(UsersManager mgr)
-        {
-            umanager = mgr;
-        }
+        //public UsuariosManage(UsersManager mgr)
+        //{
+         //   umanager = mgr;
+        //}
         public void Guardar() { }
         public void Borrar() { }
     }

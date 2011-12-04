@@ -77,14 +77,9 @@ namespace deliverywindows
             new CustomersManager().ShowDialog(this);
         }
 
-        private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new UsersManager().ShowDialog(this);
-        }
-
         private void camionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new TrucksManager().ShowDialog();
+            new TrucksManager().ShowDialog(this);
         }
 
         private void viajesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -125,12 +120,12 @@ namespace deliverywindows
         //camion
         private void toolStripButton5_Click(object sender, EventArgs e)
         {
-            new TrucksManager().ShowDialog();
+            new TrucksManager().ShowDialog(this);
         }
         //orden
         private void toolStripButton6_Click(object sender, EventArgs e)
         {
-
+            new OrdersEditor().ShowDialog(this);
         }
         //viaje
         private void toolStripButton7_Click(object sender, EventArgs e)

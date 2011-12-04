@@ -6,113 +6,144 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using deliverywindows.controllers;//importando los controladores
+//importando los controladores
+using deliverywindows.controllers;
+using deliverywindows.models;
+using deliverywindows.utils;
 
 namespace deliverywindows
 {
-    using models;
-
     public partial class CustomersEditor : Form
     {
-        ClientesManage manage;
-        DATABASEDataContext data;
-        int id = -1; //para cuando se valla a actualizar el cliente
+        CustomersManager manager;
 
+        ModelCustomer model;
 
-        public CustomersEditor(ref ClientesManage manage)
+        /// <summary>
+        /// constructor por defecto para abrir formualrio de agregar cliente
+        /// </summary>
+        public CustomersEditor()
         {
             InitializeComponent();
-            data = DataConexion.getInstance();
-            this.manage = manage;
-            setCiudad();        
-        }
-        public void setUpdateFieldData(int id,string nombre,string direccion1,string direccion2,string ciudad,string telefono)
-        {
-            Nombre = nombre;
-            Direccion1 = direccion1;
-            Direccion2 = direccion2;
-            Ciudad = ciudad;
-            Telefono = telefono;
-            this.id = id;
+            this.manager = ((CustomersManager)this.Owner);
+            model = new ModelCustomer();
+            //llenar el combo de las ciudades
+            this.ciudad.DataSource = new ModelCountry().getAlltoSortedList().GetValueList();
         }
 
-        void setCiudad() 
+        /// <summary>
+        /// constructor para formulario nuevo
+        /// </summary>
+        /// <param name="manager"></param>
+        public CustomersEditor(CustomersManager manager)
         {
-            var query = from a in data.Ciudades
-                        select a.NOMBRE;
-            ciudad.Items.AddRange(query.ToArray());
-            ciudad.SelectedIndex = 0;
+            InitializeComponent();
+            this.manager = manager;
+            model = new ModelCustomer();
+            //llenar el combo de las ciudades
+            this.ciudad.DataSource = new ModelCountry().getAlltoSortedList().GetValueList();
+        }
+
+        /// <summary>
+        /// constructor para editar el cliente
+        /// </summary>
+        /// <param name="Codigocliente"></param>
+        /// <param name="manager"></param>
+        public CustomersEditor(int Codigocliente,CustomersManager manager)
+        {
+            InitializeComponent();
+            this.manager = manager;
+            //llenar el combo de las ciudades
+            this.ciudad.DataSource = new ModelCountry().getAlltoSortedList().GetValueList();
+            
+            model = new ModelCustomer();            
+            model.find(Codigocliente);
+            if (model.customer.Codigo != 0) {
+                fillForm();
+            }
+
+        }
+
+        /// <summary>
+        /// metodo para rellenar los campos del formulario
+        /// </summary>
+        private void fillForm() {
+            //rellenar el nombre
+            this.nombre.Text = this.model.customer.Nombre;
+            //rellenar la direccion
+            this.direccion.Text = this.model.customer.Direccion1;
+            //seleccionar la ciudad 
+            int keyCiudad = new ModelCountry().getAlltoSortedList().IndexOfValue(this.model.customer.NombreCiudad);
+            this.ciudad.SelectedIndex = keyCiudad;
+            //rellenar la direccion 2
+            this.direccion2.Text = this.model.customer.Direccion2;
+            //rellenar el telefono
+            this.telefono.Text = this.model.customer.Telefono;
         }
        
+
+        /// <summary>
+        /// meotodo para evento click del boton cancelar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button2_Click(object sender, EventArgs e)
         {
-            if ( MessageBox.Show(this, "Desea cancelar esta solicitud?","Agregar Cliente",MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.Yes) {
-                this.Dispose();            
+            if (UtilsViews.showMsgConfirm("¿Desea cancelar la solicitud?", this.Text) == DialogResult.Yes) {
+                this.Dispose();
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (validate())
+            //validar los campos
+            Boolean error = false;
+            if (this.nombre.Text == "")
             {
-                MessageBox.Show(this, "El cliente ha sido agregado correctamente", "Agregar Cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                manage.Guardar();
-                this.Dispose();
+                this.errorNombre.SetError(this.nombre, "El nombre es requerido");
+                error = true;
             }
-            else
+            else if (this.ciudad.Text == "")
             {
-                MessageBox.Show("Llene Los Campos Correctamente");
+                this.errorCiudad.SetError(this.nombre, "La ciudad es requerida");
+                error = true;
             }
-        }
+            else if (this.direccion.Text == "")
+            {
+                this.errorDireccion.SetError(this.nombre, "La direccion es requerida");
+                error = true;
+            }
+            else if (this.telefono.Text == "")
+            {
+                this.errorTelefono.SetError(this.nombre, "El telefono es requerido");
+                error = true;
+            }
 
-        bool validate()
-        {
-            if (String.IsNullOrWhiteSpace(nombre.Text)) return false;
-            else if (String.IsNullOrWhiteSpace(direccion.Text)) return false;
-            else if (String.IsNullOrWhiteSpace(direccion2.Text)) return false;
-            else if (String.IsNullOrWhiteSpace(ciudad.SelectedItem.ToString())) return false;
-            else if (String.IsNullOrWhiteSpace(telefono.Text) && telefono.Text.Count() == 10) return false;
-            else return true;
-        }
-
-
-        public int Id
-        {
-            get { return id; }
-            set { id = value; }
-        }
-        public string Nombre
-        {
-            set { nombre.Text = value; }
-            get { return nombre.Text; }
-        }
-        public string Direccion1
-        {
-            set { direccion.Text = value; }
-            get { return direccion.Text; }
-        }
-        public string Direccion2
-        {
-            set { direccion2.Text = value; }
-            get { return direccion2.Text; }
-        }
-        public string Ciudad
-        {
-            set { 
-                    for (int n = 0; n < ciudad.Items.Count - 1;n++ ) 
+            //no se encontro ningun error en la validaciones
+            if (!error) {
+                if (model.customer.Codigo != 0)//cuando es para editar
+                {
+                    if (model.update())
                     {
-                        if(ciudad.Items[n].ToString() == value)
-                        {
-                            ciudad.SelectedIndex = n;
-                        }
-                    } 
+                        UtilsViews.showMsgSuccess("El cliente ha sido actualizado correctamente", this.Text);
+                        this.Close();
+                    }
+                    else
+                        UtilsViews.showMsgError("El cliente no pudo ser actualizado correctamente, intente de nuevo. Si el problema persiste favor reportar", this.Text);
                 }
-            get { return ciudad.SelectedItem.ToString(); }
-        }
-        public string Telefono 
-        {
-            get { return telefono.Text; }
-            set { telefono.Text = value; }
+                else //cuando es para agregar
+                {
+                    if (model.add() == 1)
+                    {
+                        UtilsViews.showMsgSuccess("El cliente ha sido agregado correctamente",this.Text);
+                        this.Close();
+                    }
+                    else
+                        UtilsViews.showMsgError("El cliente no pudo ser agregado correctamente, intente de nuevo. Si el problema persiste favor reportar", this.Text);
+                }
+                
+            }
+            
         }
     }
 }

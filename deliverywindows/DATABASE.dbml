@@ -5,7 +5,17 @@
       <Column Name="CODIGO" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="NOMBRE" Type="System.String" DbType="NVarChar(60) NOT NULL" CanBeNull="false" />
       <Column Name="DESCRIPCION" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
-      <Association Name="Camione_Transacciones_Camione" Member="Transacciones_Camiones" ThisKey="CODIGO" OtherKey="CODIGOCAMION" Type="Transacciones_Camione" />
+      <Association Name="Camione_Viajes_Camion" Member="Viajes_Camions" ThisKey="CODIGO" OtherKey="CODIGOCAMION" Type="Viajes_Camion" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Ciudades" Member="Ciudades">
+    <Type Name="Ciudade">
+      <Column Name="CODIGO" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NOMBRE" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="DESCRIPCION" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ZIPCODE" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Association Name="Ciudade_Cliente" Member="Clientes" ThisKey="CODIGO" OtherKey="CIUDAD" Type="Cliente" />
+      <Association Name="Ciudade_Suplidore" Member="Suplidores" ThisKey="CODIGO" OtherKey="CIUDAD" Type="Suplidore" />
     </Type>
   </Table>
   <Table Name="dbo.Clientes" Member="Clientes">
@@ -14,26 +24,28 @@
       <Column Name="NOMBRE" Type="System.String" DbType="NVarChar(60) NOT NULL" CanBeNull="false" />
       <Column Name="DIRECCION1" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
       <Column Name="DIRECCION2" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="CIUDAD" Type="System.String" DbType="NVarChar(60) NOT NULL" CanBeNull="false" />
-      <Column Name="TELEFONO" Type="System.String" DbType="NVarChar(11) NOT NULL" CanBeNull="false" />
+      <Column Name="CIUDAD" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TELEFONO" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Association Name="Ciudade_Cliente" Member="Ciudade" ThisKey="CIUDAD" OtherKey="CODIGO" Type="Ciudade" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Suplidores" Member="Suplidores">
-    <Type Name="Suplidore">
+  <Table Name="dbo.Empleados" Member="Empleados">
+    <Type Name="Empleado">
       <Column Name="CODIGO" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="NOMBRE" Type="System.String" DbType="NVarChar(60) NOT NULL" CanBeNull="false" />
-      <Column Name="CIUDAD" Type="System.String" DbType="NVarChar(60) NOT NULL" CanBeNull="false" />
-      <Column Name="ESTADO" Type="System.String" DbType="NVarChar(60) NOT NULL" CanBeNull="false" />
-      <Column Name="TELEFONO" Type="System.String" DbType="NVarChar(14) NOT NULL" CanBeNull="false" />
-      <Column Name="DIRECCION1" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
-      <Column Name="NOMBRECORTO" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
-      <Association Name="Suplidore_Ordene" Member="Ordenes" ThisKey="CODIGO" OtherKey="CODIGOSUPLIDOR" Type="Ordene" />
+      <Column Name="CODIGOSUPERVISOR" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NOMBRE" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="DIRECCION" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="CIUDAD" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="TELEFONO" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="TIPO" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Empleado_Viajes_Camion" Member="Viajes_Camions" ThisKey="CODIGO" OtherKey="CODIGOEMPLEADO" Type="Viajes_Camion" />
     </Type>
   </Table>
   <Table Name="dbo.Ordenes" Member="Ordenes">
     <Type Name="Ordene">
       <Column Name="CODIGO" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="CODIGOSUPLIDOR" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CODIGOCLIENTE" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="CODIGOVIAJE" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="FECHAORDEN" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="ESTATUS" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
@@ -43,22 +55,32 @@
       <Column Name="PESOORDEN" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
       <Column Name="NOMBRERECIBIDOR" Type="System.String" DbType="NVarChar(60) NOT NULL" CanBeNull="false" />
       <Column Name="FECHAENTREGA" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="FIRMAENTREGA" Type="System.Data.Linq.Binary" DbType="Binary(50) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="FIRMAENTREGA" Type="System.Data.Linq.Binary" DbType="Binary(50)" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="Ordene_Transacciones_Camione" Member="Transacciones_Camiones" ThisKey="CODIGO" OtherKey="CODIGOORDEN" Type="Transacciones_Camione" />
       <Association Name="Suplidore_Ordene" Member="Suplidore" ThisKey="CODIGOSUPLIDOR" OtherKey="CODIGO" Type="Suplidore" IsForeignKey="true" />
-      <Association Name="Viaje_Ordene" Member="Viaje" ThisKey="CODIGOVIAJE" OtherKey="CODIGO" Type="Viaje" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Suplidores" Member="Suplidores">
+    <Type Name="Suplidore">
+      <Column Name="CODIGO" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NOMBRE" Type="System.String" DbType="NVarChar(60) NOT NULL" CanBeNull="false" />
+      <Column Name="CIUDAD" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ESTADO" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="TELEFONO" Type="System.String" DbType="NVarChar(14) NOT NULL" CanBeNull="false" />
+      <Column Name="DIRECCION1" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="NOMBRECORTO" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Association Name="Suplidore_Ordene" Member="Ordenes" ThisKey="CODIGO" OtherKey="CODIGOSUPLIDOR" Type="Ordene" />
+      <Association Name="Ciudade_Suplidore" Member="Ciudade" ThisKey="CIUDAD" OtherKey="CODIGO" Type="Ciudade" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Transacciones_Camiones" Member="Transacciones_Camiones">
     <Type Name="Transacciones_Camione">
-      <Column Name="CODIGOVIAJE" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="CODIGOCAMION" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CODIGOORDEN" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CODIGOVIAJE" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="ODOMETRO" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
       <Column Name="FECHATRANSACCION" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="CODIGOEMPLEADO" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="FIRMA" Type="System.Data.Linq.Binary" DbType="Binary(50) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
-      <Association Name="Camione_Transacciones_Camione" Member="Camione" ThisKey="CODIGOCAMION" OtherKey="CODIGO" Type="Camione" IsForeignKey="true" />
-      <Association Name="Viaje_Transacciones_Camione" Member="Viaje" ThisKey="CODIGOVIAJE" OtherKey="CODIGO" Type="Viaje" IsForeignKey="true" />
-      <Association Name="Empleado_Transacciones_Camione" Member="Empleado" ThisKey="CODIGOEMPLEADO" OtherKey="CODIGO" Type="Empleado" IsForeignKey="true" />
+      <Association Name="Ordene_Transacciones_Camione" Member="Ordene" ThisKey="CODIGOORDEN" OtherKey="CODIGO" Type="Ordene" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Usuarios" Member="Usuarios">
@@ -75,27 +97,17 @@
       <Column Name="CODIGO" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="FECHAVIAJE" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="ESTATUS" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Viaje_Ordene" Member="Ordenes" ThisKey="CODIGO" OtherKey="CODIGOVIAJE" Type="Ordene" />
-      <Association Name="Viaje_Transacciones_Camione" Member="Transacciones_Camiones" ThisKey="CODIGO" OtherKey="CODIGOVIAJE" Type="Transacciones_Camione" />
+      <Association Name="Viaje_Viajes_Camion" Member="Viajes_Camion" ThisKey="CODIGO" OtherKey="CODIGOVIAJE" Type="Viajes_Camion" Cardinality="One" />
     </Type>
   </Table>
-  <Table Name="dbo.Empleados" Member="Empleados">
-    <Type Name="Empleado">
-      <Column Name="CODIGO" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="CODIGOSUPERVISOR" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="NOMBRE" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
-      <Column Name="DIRECCION" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
-      <Column Name="CIUDAD" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="TELEFONO" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
-      <Association Name="Empleado_Transacciones_Camione" Member="Transacciones_Camiones" ThisKey="CODIGO" OtherKey="CODIGOEMPLEADO" Type="Transacciones_Camione" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Ciudades" Member="Ciudades">
-    <Type Name="Ciudade">
-      <Column Name="CODIGO" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="NOMBRE" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="DESCRIPCION" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="ZIPCODE" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+  <Table Name="dbo.Viajes_Camion" Member="Viajes_Camions">
+    <Type Name="Viajes_Camion">
+      <Column Name="CODIGOVIAJE" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CODIGOCAMION" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CODIGOEMPLEADO" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Camione_Viajes_Camion" Member="Camione" ThisKey="CODIGOCAMION" OtherKey="CODIGO" Type="Camione" IsForeignKey="true" />
+      <Association Name="Empleado_Viajes_Camion" Member="Empleado" ThisKey="CODIGOEMPLEADO" OtherKey="CODIGO" Type="Empleado" IsForeignKey="true" />
+      <Association Name="Viaje_Viajes_Camion" Member="Viaje" ThisKey="CODIGOVIAJE" OtherKey="CODIGO" Type="Viaje" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

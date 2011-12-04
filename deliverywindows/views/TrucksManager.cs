@@ -27,7 +27,7 @@ namespace deliverywindows
         {
             editor = new TrucksEditor(ref manage);
             manage.setEditor(editor);
-            editor.ShowDialog();
+            editor.ShowDialog(this);
         }
 
         private void modificar_Click(object sender, EventArgs e)
@@ -37,7 +37,7 @@ namespace deliverywindows
                 editor = new TrucksEditor(ref manage);
                 manage.setEditor(editor);
                 manage.setModifyFieldData();
-                editor.ShowDialog();
+                editor.ShowDialog(this);
             }
             else
             {
@@ -70,6 +70,11 @@ namespace deliverywindows
         {
             set { dataGridView1 = value; }
             get { return dataGridView1; }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

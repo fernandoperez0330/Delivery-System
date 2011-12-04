@@ -28,7 +28,7 @@ namespace deliverywindows
         {
             editor = new SupplierEditor(ref manage);
             manage.setEditor(ref editor);
-            editor.ShowDialog();
+            editor.ShowDialog(this);
         }
 
         private void salirbtn_Click(object sender, EventArgs e)
@@ -42,17 +42,20 @@ namespace deliverywindows
             {
                 editor = new SupplierEditor(ref manage);
                 manage.setEditor(ref editor);
-                manage.setUpdateFieldData
-                        (
-                            Convert.ToInt32(dataGridView1.SelectedCells[0].Value.ToString()),
-                            dataGridView1.SelectedCells[1].Value.ToString(),
-                             dataGridView1.SelectedCells[2].Value.ToString(),
-                             dataGridView1.SelectedCells[3].Value.ToString(),
-                             dataGridView1.SelectedCells[4].Value.ToString(),
-                             dataGridView1.SelectedCells[5].Value.ToString(),
-                             dataGridView1.SelectedCells[6].Value.ToString()
-                        );
-            editor.ShowDialog();
+
+                int keyCiudad = editor.arrCiudades.IndexOfValue(dataGridView1.SelectedCells[2].ToString());
+
+                manage.setUpdateFieldData(
+                        Convert.ToInt32(dataGridView1.SelectedCells[0].Value.ToString()),
+                        dataGridView1.SelectedCells[1].Value.ToString(),
+                        keyCiudad,
+                        dataGridView1.SelectedCells[3].Value.ToString(),
+                        dataGridView1.SelectedCells[4].Value.ToString(),
+                        dataGridView1.SelectedCells[5].Value.ToString(),
+                        dataGridView1.SelectedCells[6].Value.ToString()
+                    );
+
+                editor.ShowDialog(this);
             }
             else { MessageBox.Show("No Hay Nada Seleccionado..."); }
         }

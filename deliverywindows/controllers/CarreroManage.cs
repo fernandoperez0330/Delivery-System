@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using deliverywindows.utils;
 
 namespace deliverywindows.controllers
 {
     using models;
+    using deliverywindows.utils;
 
    public class CarreroManage:ManagersInterface
     {
@@ -20,11 +22,15 @@ namespace deliverywindows.controllers
         }
         public void setModifyFieldData()
         {
-            ceditor.ID = Convert.ToInt32(cmanager.DGV.SelectedCells[0].Value.ToString());
-            ceditor.Nombre = cmanager.DGV.SelectedCells[2].Value.ToString();
-            ceditor.Direccion = cmanager.DGV.SelectedCells[3].Value.ToString();
-            ceditor.Ciudad= cmanager.DGV.SelectedCells[4].Value.ToString();
-            ceditor.Telefono = cmanager.DGV.SelectedCells[5].Value.ToString();
+            try {
+                ceditor.ID = Convert.ToInt32(cmanager.DGV.SelectedCells[0].Value.ToString());
+                ceditor.Nombre = cmanager.DGV.SelectedCells[1].Value.ToString();
+                ceditor.Direccion = cmanager.DGV.SelectedCells[2].Value.ToString();
+                ceditor.Ciudad = cmanager.DGV.SelectedCells[3].Value.ToString();
+                ceditor.Telefono = cmanager.DGV.SelectedCells[4].Value.ToString();
+            }catch(Exception exc){
+                Utils.logExceptionError(exc);
+            }
         }
         public void toDGV()
         {
@@ -32,6 +38,7 @@ namespace deliverywindows.controllers
                         select carreros;
             cmanager.DGV.DataSource = query;
         }
+
         public void setEditor(CartersEditor edtr)
         {
             ceditor = edtr;
@@ -40,6 +47,8 @@ namespace deliverywindows.controllers
             string[] ciudads = query.ToArray();
             ceditor.setCityData(ref ciudads);
         }
+
+
         public void Guardar()
         {
             if (ceditor.ID < 0)

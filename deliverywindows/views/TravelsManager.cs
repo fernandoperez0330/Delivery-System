@@ -29,37 +29,17 @@ namespace deliverywindows
         {
             editor = new TravelsEditor(ref manage);
             manage.setEditor( editor);
-            editor.ShowDialog();
+            editor.ShowDialog(this);
         }
 
         private void modificar_Click(object sender, EventArgs e)
         {
-           if(DGV.SelectedRows.Count > 0)
-           {
-                editor = new TravelsEditor(ref manage);
-                manage.setEditor(editor);
-                manage.setFieldValues();
-                editor.ShowDialog();
-           }
-           else
-           {
-               MessageBox.Show("No Hay Nada Seleccionado...");
-           }
+
         }
 
         private void borrar_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(this, "Seguro Desea Borrar?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-             {
-                 if (DGV.SelectedRows.Count > 0)
-                 {
-                     manage.Borrar();
-                     
-                 }
-            }
-            else
-            {
-            }
+
         }
         public DataGridView DGV
         {
@@ -73,6 +53,17 @@ namespace deliverywindows
             {
                 this.Dispose();
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void agregar_Click_1(object sender, EventArgs e)
+        {
+            editor = new TravelsEditor(ref manage);
+            editor.ShowDialog(this);
         }
     }
 }

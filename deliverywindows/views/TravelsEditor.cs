@@ -24,7 +24,7 @@ namespace deliverywindows
 
         private void aceptar_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(this, "Desea Procesar ?", "Agregar Viaje", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show(this, "Desea Procesar ?", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 manage.Guardar();
                 this.Dispose();
@@ -41,7 +41,6 @@ namespace deliverywindows
             {
                 this.Dispose();
             }
-            else { }
         }
         public int ID
         {

@@ -10,6 +10,9 @@ using System.Windows.Forms;
 namespace deliverywindows
 {
     using controllers;
+    using deliverywindows.models;
+    using deliverywindows.entities;
+    using deliverywindows.utils;
 
     public partial class CartersEditor : Form
     {
@@ -20,19 +23,31 @@ namespace deliverywindows
         {
             InitializeComponent();
             manage = mgr;
+            this.Text = "Actualizar Carrero";
             manage.setEditor(this);
         }
         public void setCityData(ref string[] ciudades)
         {
-            ciudad.Items.AddRange(ciudades);
-            ciudad.SelectedIndex = 0;
+            try
+            {
+                ciudad.Items.AddRange(ciudades);
+                ciudad.SelectedIndex = 0;
+            }catch(Exception exc){
+                Utils.logExceptionError(exc);
+            }
+
         }
-        private void button2_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show(this, "¿Desea cancelar esta solicitud?", "Agregar Carrero", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) {
+
+        private void button2_Click(object sender, EventArgs e){
+            DialogResult messageBoxResult = MessageBox.Show(this, "¿Desea cancelar esta solicitud?", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (messageBoxResult == DialogResult)
+            {
                 this.Dispose();
             }
+            else return;
         }
+
+
 
         private void aceptar_Click(object sender, EventArgs e)
         {
@@ -87,6 +102,10 @@ namespace deliverywindows
         {
             set { nombre.Text = value; }
             get { return nombre.Text; }
+        }
+
+        private void CartersEditor_Load(object sender, EventArgs e)
+        {
         }
     }
 }

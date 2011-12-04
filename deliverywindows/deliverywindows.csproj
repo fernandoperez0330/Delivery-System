@@ -54,7 +54,6 @@
     <Compile Include="config\DBConnection.cs" />
     <Compile Include="controllers\CamionManage.cs" />
     <Compile Include="controllers\CarreroManage.cs" />
-    <Compile Include="controllers\ClientesManage.cs" />
     <Compile Include="controllers\ManagersInterface.cs" />
     <Compile Include="controllers\SupplierManage.cs" />
     <Compile Include="controllers\UserValidation.cs" />
@@ -65,7 +64,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DATABASE.dbml</DependentUpon>
     </Compile>
+    <Compile Include="entities\Entity.cs" />
+    <Compile Include="entities\EntityCustomer.cs" />
+    <Compile Include="entities\EntityOrder.cs" />
+    <Compile Include="entities\EntitySupplier.cs" />
+    <Compile Include="entities\EntityTravel.cs" />
+    <Compile Include="entities\EntityUser.cs" />
     <Compile Include="models\DataConexion.cs" />
+    <Compile Include="models\Model.cs" />
+    <Compile Include="models\ModelCountry.cs" />
+    <Compile Include="models\ModelCustomer.cs" />
+    <Compile Include="models\ModelOrder.cs" />
+    <Compile Include="models\ModelSupplier.cs" />
+    <Compile Include="models\ModelTravel.cs" />
+    <Compile Include="models\ModelUsers.cs" />
+    <Compile Include="utils\Utils.cs" />
+    <Compile Include="utils\UtilsViews.cs" />
     <Compile Include="views\CartersEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -79,6 +93,18 @@
       <DependentUpon>CartersManager.cs</DependentUpon>
     </Compile>
     <Compile Include="config\Config.cs" />
+    <Compile Include="views\CustomerFinder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\CustomerFinder.Designer.cs">
+      <DependentUpon>CustomerFinder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="views\TravelFinder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\TravelFinder.Designer.cs">
+      <DependentUpon>TravelFinder.cs</DependentUpon>
+    </Compile>
     <Compile Include="views\CustomersEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -123,6 +149,12 @@
     <Compile Include="views\SupplierEditor.Designer.cs">
       <DependentUpon>SupplierEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="views\SupplierFinder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\SupplierFinder.Designer.cs">
+      <DependentUpon>SupplierFinder.cs</DependentUpon>
+    </Compile>
     <Compile Include="views\SupplierManager.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -153,12 +185,6 @@
     <Compile Include="views\TrucksManager.Designer.cs">
       <DependentUpon>TrucksManager.cs</DependentUpon>
     </Compile>
-    <Compile Include="views\UsersManager.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="views\UsersManager.Designer.cs">
-      <DependentUpon>UsersManager.cs</DependentUpon>
-    </Compile>
     <None Include="DATABASE.dbml.layout">
       <DependentUpon>DATABASE.dbml</DependentUpon>
     </None>
@@ -167,6 +193,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="views\CartersManager.resx">
       <DependentUpon>CartersManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\CustomerFinder.resx">
+      <DependentUpon>CustomerFinder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\TravelFinder.resx">
+      <DependentUpon>TravelFinder.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="views\CustomersEditor.resx">
       <DependentUpon>CustomersEditor.cs</DependentUpon>
@@ -199,6 +231,9 @@
     <EmbeddedResource Include="views\SupplierEditor.resx">
       <DependentUpon>SupplierEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="views\SupplierFinder.resx">
+      <DependentUpon>SupplierFinder.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="views\SupplierManager.resx">
       <DependentUpon>SupplierManager.cs</DependentUpon>
     </EmbeddedResource>
@@ -213,9 +248,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="views\TrucksManager.resx">
       <DependentUpon>TrucksManager.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="views\UsersManager.resx">
-      <DependentUpon>UsersManager.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
     <None Include="DATABASE.dbml">
@@ -234,11 +266,16 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="resources\login.png" />
+    <None Include="resources\cancel.png" />
+    <None Include="resources\accept2.png" />
+    <None Include="resources\add.png" />
+    <None Include="resources\accept.png" />
+    <None Include="resources\update.png" />
+    <None Include="resources\remove.png" />
     <Content Include="resources\favicon.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="utils\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
