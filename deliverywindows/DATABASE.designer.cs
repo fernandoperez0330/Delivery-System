@@ -744,6 +744,8 @@ namespace deliverywindows
 		
 		private int _TIPO;
 		
+		private EntitySet<Usuario> _Usuarios;
+		
 		private EntitySet<Viajes_Camion> _Viajes_Camions;
 		
     #region Extensibility Method Definitions
@@ -768,6 +770,7 @@ namespace deliverywindows
 		
 		public Empleado()
 		{
+			this._Usuarios = new EntitySet<Usuario>(new Action<Usuario>(this.attach_Usuarios), new Action<Usuario>(this.detach_Usuarios));
 			this._Viajes_Camions = new EntitySet<Viajes_Camion>(new Action<Viajes_Camion>(this.attach_Viajes_Camions), new Action<Viajes_Camion>(this.detach_Viajes_Camions));
 			OnCreated();
 		}
@@ -912,6 +915,19 @@ namespace deliverywindows
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Empleado_Usuario", Storage="_Usuarios", ThisKey="CODIGO", OtherKey="CODIGOEMPLEADO")]
+		public EntitySet<Usuario> Usuarios
+		{
+			get
+			{
+				return this._Usuarios;
+			}
+			set
+			{
+				this._Usuarios.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Empleado_Viajes_Camion", Storage="_Viajes_Camions", ThisKey="CODIGO", OtherKey="CODIGOEMPLEADO")]
 		public EntitySet<Viajes_Camion> Viajes_Camions
 		{
@@ -943,6 +959,18 @@ namespace deliverywindows
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_Usuarios(Usuario entity)
+		{
+			this.SendPropertyChanging();
+			entity.Empleado = this;
+		}
+		
+		private void detach_Usuarios(Usuario entity)
+		{
+			this.SendPropertyChanging();
+			entity.Empleado = null;
 		}
 		
 		private void attach_Viajes_Camions(Viajes_Camion entity)
@@ -1867,6 +1895,10 @@ namespace deliverywindows
 		
 		private int _SINCRONIZA;
 		
+		private System.Nullable<int> _CODIGOEMPLEADO;
+		
+		private EntityRef<Empleado> _Empleado;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1881,10 +1913,13 @@ namespace deliverywindows
     partial void OnTIPOUSUARIOChanged();
     partial void OnSINCRONIZAChanging(int value);
     partial void OnSINCRONIZAChanged();
+    partial void OnCODIGOEMPLEADOChanging(System.Nullable<int> value);
+    partial void OnCODIGOEMPLEADOChanged();
     #endregion
 		
 		public Usuario()
 		{
+			this._Empleado = default(EntityRef<Empleado>);
 			OnCreated();
 		}
 		
@@ -1984,6 +2019,64 @@ namespace deliverywindows
 					this._SINCRONIZA = value;
 					this.SendPropertyChanged("SINCRONIZA");
 					this.OnSINCRONIZAChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CODIGOEMPLEADO", DbType="Int")]
+		public System.Nullable<int> CODIGOEMPLEADO
+		{
+			get
+			{
+				return this._CODIGOEMPLEADO;
+			}
+			set
+			{
+				if ((this._CODIGOEMPLEADO != value))
+				{
+					if (this._Empleado.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCODIGOEMPLEADOChanging(value);
+					this.SendPropertyChanging();
+					this._CODIGOEMPLEADO = value;
+					this.SendPropertyChanged("CODIGOEMPLEADO");
+					this.OnCODIGOEMPLEADOChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Empleado_Usuario", Storage="_Empleado", ThisKey="CODIGOEMPLEADO", OtherKey="CODIGO", IsForeignKey=true)]
+		public Empleado Empleado
+		{
+			get
+			{
+				return this._Empleado.Entity;
+			}
+			set
+			{
+				Empleado previousValue = this._Empleado.Entity;
+				if (((previousValue != value) 
+							|| (this._Empleado.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Empleado.Entity = null;
+						previousValue.Usuarios.Remove(this);
+					}
+					this._Empleado.Entity = value;
+					if ((value != null))
+					{
+						value.Usuarios.Add(this);
+						this._CODIGOEMPLEADO = value.CODIGO;
+					}
+					else
+					{
+						this._CODIGOEMPLEADO = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Empleado");
 				}
 			}
 		}

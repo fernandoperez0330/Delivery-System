@@ -65,18 +65,22 @@
       <DependentUpon>DATABASE.dbml</DependentUpon>
     </Compile>
     <Compile Include="entities\Entity.cs" />
+    <Compile Include="entities\EntityCarters.cs" />
     <Compile Include="entities\EntityCustomer.cs" />
     <Compile Include="entities\EntityOrder.cs" />
     <Compile Include="entities\EntitySupplier.cs" />
     <Compile Include="entities\EntityTravel.cs" />
+    <Compile Include="entities\EntityTruck.cs" />
     <Compile Include="entities\EntityUser.cs" />
     <Compile Include="models\DataConexion.cs" />
     <Compile Include="models\Model.cs" />
+    <Compile Include="models\ModelCarters.cs" />
     <Compile Include="models\ModelCountry.cs" />
     <Compile Include="models\ModelCustomer.cs" />
     <Compile Include="models\ModelOrder.cs" />
     <Compile Include="models\ModelSupplier.cs" />
     <Compile Include="models\ModelTravel.cs" />
+    <Compile Include="models\ModelTruck.cs" />
     <Compile Include="models\ModelUsers.cs" />
     <Compile Include="utils\Utils.cs" />
     <Compile Include="utils\UtilsViews.cs" />

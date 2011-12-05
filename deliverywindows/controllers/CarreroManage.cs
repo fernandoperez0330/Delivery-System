@@ -42,10 +42,6 @@ namespace deliverywindows.controllers
         public void setEditor(CartersEditor edtr)
         {
             ceditor = edtr;
-            var query = from ciudades in data.Ciudades
-                        select ciudades.NOMBRE;
-            string[] ciudads = query.ToArray();
-            ceditor.setCityData(ref ciudads);
         }
 
 
@@ -80,12 +76,18 @@ namespace deliverywindows.controllers
         }
         public void Borrar()
         {
-            var query = from carrero in data.Empleados
-                        where carrero.CODIGO == Convert.ToInt32(cmanager.DGV.SelectedCells[0].Value.ToString())
-                        select carrero;
-            Empleado em = query.First<Empleado>();
-            data.Empleados.DeleteOnSubmit(em);
-            data.SubmitChanges();
+            try
+            {
+                var query = from carrero in data.Empleados
+                            where carrero.CODIGO == Convert.ToInt32(cmanager.DGV.SelectedCells[0].Value.ToString())
+                            select carrero;
+                Empleado em = query.First<Empleado>();
+                data.Empleados.DeleteOnSubmit(em);
+                data.SubmitChanges();
+            }
+            catch (Exception exc) {
+                Utils.logExceptionError(exc);
+            }
         }
     }
 }

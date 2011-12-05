@@ -38,6 +38,7 @@
       <Column Name="CIUDAD" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="TELEFONO" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
       <Column Name="TIPO" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Empleado_Usuario" Member="Usuarios" ThisKey="CODIGO" OtherKey="CODIGOEMPLEADO" Type="Usuario" />
       <Association Name="Empleado_Viajes_Camion" Member="Viajes_Camions" ThisKey="CODIGO" OtherKey="CODIGOEMPLEADO" Type="Viajes_Camion" />
     </Type>
   </Table>
@@ -90,6 +91,8 @@
       <Column Name="CLAVE" Type="System.String" DbType="NVarChar(70) NOT NULL" CanBeNull="false" />
       <Column Name="TIPOUSUARIO" Type="System.String" DbType="NVarChar(1) NOT NULL" CanBeNull="false" />
       <Column Name="SINCRONIZA" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CODIGOEMPLEADO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Empleado_Usuario" Member="Empleado" ThisKey="CODIGOEMPLEADO" OtherKey="CODIGO" Type="Empleado" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Viajes" Member="Viajes">

@@ -6,23 +6,42 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using deliverywindows.controllers;
+using deliverywindows.models;
+using deliverywindows.entities;
+using deliverywindows.utils;
+
 
 namespace deliverywindows
 {
-    using controllers;
-    using deliverywindows.models;
-    using deliverywindows.entities;
+    
 
     public partial class CartersManager : Form
     {
         CarreroManage manage;
         CartersEditor editor;
-       
+        ModelCarters model;
+        /// <summary>
+        /// constructor
+        /// </summary>
         public CartersManager()
         {
             InitializeComponent();
-            manage = new CarreroManage(this);           
-            manage.toDGV();
+            manage = new CarreroManage(this);
+            model = new ModelCarters();
+            toDGV();
+        }
+
+        /// <summary>
+        /// metodo para rellenar data grid general de carreross
+        /// </summary>
+        public void toDGV()
+        {
+            try {
+                this.dataGridView1.DataSource = model.findAlltoDataSource();
+            }catch(Exception exc){
+                Utils.logExceptionError(exc);
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -30,11 +49,16 @@ namespace deliverywindows
             
         }
 
+        /// <summary>
+        /// metodo del evento click para abrir formualrio de agregar carrero
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
-           editor =  new CartersEditor(manage);
-           editor.ShowDialog(this);
-           this.dataGridView1.ClearSelection();
+            editor =  new CartersEditor(manage);
+            editor.ShowDialog(this);
+            this.dataGridView1.ClearSelection();
         }
 
         /// <summary>
@@ -44,45 +68,55 @@ namespace deliverywindows
         /// <param name="e"></param>
         private void modificar_Click(object sender, EventArgs e)
         {
-            if (DGV.SelectedCells.Count > 0)
-            {               
-               editor =  new CartersEditor(manage);
-               manage.setModifyFieldData();
-               editor.ShowDialog(this);
+            if (this.dataGridView1.SelectedCells.Count > 0)
+            {
+                try
+                {
+                    int codigoCarrero = Convert.ToInt32(this.dataGridView1.SelectedCells[0].Value);
+                    new CartersEditor(codigoCarrero, this).ShowDialog(this);
+                }catch(Exception exc){
+                    UtilsViews.showMsgError("Hubo problemas al abrir el carrero, favor intente de nuevo. Si el problema persiste, favor reportar",this.Text);
+                    Utils.logExceptionError(exc);
+                }
             }
             else MessageBox.Show("No hay ningun carrero seleccionado para actualizar");
         }
+
+        /// <summary>
+        /// metodo para evento click de borrar carrero
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void borrar_Click(object sender, EventArgs e)
         {
-            if (DGV.SelectedCells.Count > 0)
+            if (this.dataGridView1.SelectedCells.Count > 0)
             {
-                if(MessageBox.Show(this,"Esta seguro?","",MessageBoxButtons.YesNo,MessageBoxIcon.Question)==DialogResult.Yes)
+                DialogResult msgresult = UtilsViews.showMsgConfirm("¿Esta seguro de eliminar este carrero", this.Text);
+                if (msgresult == DialogResult.Yes)
                 {
-                    manage.Borrar();
-                    manage.toDGV();
+                    model.carter.Codigo = Convert.ToInt32(this.dataGridView1.SelectedCells[0].Value);
+                    if (model.delete()) {
+                        UtilsViews.showMsgSuccess("El carrero se ha eliminado correctamente", this.Text);
+                        toDGV();
+                    }else
+                        UtilsViews.showMsgError("El carrero no se puedo eliminar, intente nuevamente. Si el problema persiste favor reportar");
+                    
                 }
             }
-            else MessageBox.Show("No hay Nada Selecionado...");
-       
-        }
-        public DataGridView DGV
-        {
-            set { dataGridView1 = value; }
-            get { return dataGridView1; }
+            else
+                UtilsViews.showMsgError("No hay ningun carrero seleccionado", this.Text);
         }
 
+        /// <summary>
+        /// metodo para evento doble click del datagrid (se utilizara para abrir formulario de actualizar carrero
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            //
-            // Do something on double click, except when on the header.
-            //
-            if (e.RowIndex == -1)
-            {
-                return;
-            }
-
             this.modificar_Click(sender, e);
         }
+
 
         private void CartersManager_Load(object sender, EventArgs e)
         {
@@ -90,6 +124,11 @@ namespace deliverywindows
             ModelSupplier model = new ModelSupplier();
         }
 
+        /// <summary>
+        /// metodo para evento click de boton cancelar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click_1(object sender, EventArgs e)
         {
             this.Close();
@@ -102,16 +141,18 @@ namespace deliverywindows
         }
 
         private void dataGridView1_CellClick(object sender, EventArgs e) {
-            if (this.dataGridView1.SelectedRows.Count > 0)
-            {
-                this.btnModificar.Enabled = true;
-                this.btnBorrar.Enabled = true;
-            }
-            else {
-                this.btnModificar.Enabled = false;
-                this.btnBorrar.Enabled = false;
-            }
+            Boolean ret = (this.dataGridView1.SelectedRows.Count > 0);
+            this.btnModificar.Enabled = ret;
+            this.btnBorrar.Enabled = ret;
         }
+        private DataGridView dgv;
+
+        public DataGridView DGV
+        {
+            get { return this.dataGridView1; }
+            set { this.dataGridView1 = value; }
+        }
+
 
     }
 }

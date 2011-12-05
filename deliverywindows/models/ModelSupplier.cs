@@ -74,7 +74,6 @@ namespace deliverywindows.models
                         where suplidor.CODIGO == prkey
                         select suplidor;
             foreach(Suplidore e in query){
-                Console.WriteLine(e.CODIGO);
                 supplier.Codigo = e.CODIGO;
                 supplier.Nombre = e.NOMBRE;
                 supplier.Direccion = e.DIRECCION1;
@@ -117,6 +116,7 @@ namespace deliverywindows.models
 
                 return true;
             }catch(Exception exc){
+                Utils.logExceptionError(exc);
                 return false;
             }
         }

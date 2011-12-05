@@ -18,46 +18,118 @@ namespace deliverywindows
     {
         int id = -1;
         CarreroManage manage;
+        CartersManager manager;
+        ModelCarters model;
 
         public CartersEditor(CarreroManage mgr)
         {
             InitializeComponent();
             manage = mgr;
-            this.Text = "Actualizar Carrero";
+            model = new ModelCarters();
             manage.setEditor(this);
+            this.selectCiudad.DataSource = new ModelCountry().getAlltoSortedList().GetValueList();
         }
+
+        public CartersEditor(int codigo, CartersManager manager) {
+            InitializeComponent();
+            model = new ModelCarters();
+            model.find(codigo);
+            this.selectCiudad.DataSource = new ModelCountry().getAlltoSortedList().GetValueList();
+            if (model.carter.Codigo != 0) {
+                this.manager = manager;
+                this.ID = model.carter.Codigo;
+                this.Nombre = model.carter.Nombre;
+                this.Telefono = model.carter.Telefono;
+                this.Direccion = model.carter.Direccion;
+                this.Ciudad = model.carter.Ciudad;
+                this.txtUsuario.Text = model.carter.Usuario.Usuario;
+                this.txtClave.Text = model.carter.Usuario.Clave;
+                //cambiar el titulo de la ventana
+                this.Text = "Actualizar Carrero";
+            }else{
+                UtilsViews.showMsgError("Este carrero no pudo ser encontrado",this.Text);
+                this.Dispose();
+            }
+        }
+
         public void setCityData(ref string[] ciudades)
         {
             try
             {
-                ciudad.Items.AddRange(ciudades);
-                ciudad.SelectedIndex = 0;
+                selectCiudad.Items.AddRange(ciudades);
+                selectCiudad.SelectedIndex = 0;
             }catch(Exception exc){
                 Utils.logExceptionError(exc);
             }
 
         }
 
+        /// <summary>
+        /// metodo para evento click para cancelar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button2_Click(object sender, EventArgs e){
-            DialogResult messageBoxResult = MessageBox.Show(this, "¿Desea cancelar esta solicitud?", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult messageBoxResult = UtilsViews.showMsgConfirm("¿Desea cancelar esta solicitud?", this.Text);
             if (messageBoxResult == DialogResult)
-            {
                 this.Dispose();
-            }
             else return;
         }
-
-
-
+        
+        /// <summary>
+        /// metodo para evento click de aceptar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void aceptar_Click(object sender, EventArgs e)
         {
-                if (validate())
+            if (validate())
+            {
+                model.carter.Codigo = this.ID;
+                model.carter.Nombre = this.Nombre;
+                model.carter.Direccion = this.Direccion;
+                model.carter.Telefono = this.Telefono;
+                model.carter.Ciudad = this.Ciudad;
+                model.carter.Tipo = 2;
+                //datos para usuarios
+                model.carter.Usuario.Usuario = this.txtUsuario.Text;
+                model.carter.Usuario.Clave = this.txtClave.Text;
+                model.carter.Usuario.Tipousuario = "C";
+                model.carter.Usuario.Sincroniza = 1;
+                if (this.ID <= 0)
                 {
-                    manage.Guardar();
-                    this.Dispose();
+                    if (model.add() == 1)
+                    {
+                        UtilsViews.showMsgSuccess("El carrero ha sido agregado correctamente", this.Text);
+                        try
+                        {
+                            if (this.manager.Name == "CartersManager")
+                            {
+                                this.manager.toDGV();
+                            }
+                        }catch(Exception exc){
+                            Utils.logExceptionError(exc);
+                        }
+                        this.Dispose();
+                    }
+                    else {
+                        UtilsViews.showMsgSuccess("El carrero no se pudo agregar correctamente, favor verifique", this.Text);
+                    }
                 }
-            
-            else MessageBox.Show("Llene los campos Correctamente!");
+                else {
+                    if (model.update()) {
+                        UtilsViews.showMsgSuccess("El carrero ha sido actualizado correctamente", this.Text);
+                        this.manager.toDGV();
+                        this.Dispose();
+                    }
+                    else
+                    {
+                        UtilsViews.showMsgSuccess("El carrero no se pudo actualizar correctamente, favor verifique.", this.Text);
+                    }
+                }
+            }
+            else 
+                UtilsViews.showMsgError("Hay campos requeridos vacios", this.Text);
 
         }
         bool validate()
@@ -65,7 +137,9 @@ namespace deliverywindows
             if (string.IsNullOrWhiteSpace(nombre.Text)) return false;
             else if (string.IsNullOrWhiteSpace(direccion.Text)) return false;
             else if (string.IsNullOrWhiteSpace(telefono.Text)) return false;
-            else if (string.IsNullOrWhiteSpace(ciudad.SelectedItem.ToString())) return false;
+            else if (string.IsNullOrWhiteSpace(selectCiudad.SelectedItem.ToString())) return false;
+            else if (string.IsNullOrWhiteSpace(txtUsuario.Text)) return false;
+            else if (string.IsNullOrWhiteSpace(txtClave.Text)) return false;
             else return true;
         }
         public int ID
@@ -73,20 +147,16 @@ namespace deliverywindows
             set { id = value; }
             get { return id; }
         }
+       
         public string Ciudad
         {
             set
-            {
-                for (int n = 0; n < ciudad.Items.Count - 1; n++)
-                {
-                    if (ciudad.Items[n].ToString() == value)
-                    {
-                        ciudad.SelectedIndex = n;
-                    }
-                }
-            }
-            get { return ciudad.SelectedItem.ToString(); }
+            { this.selectCiudad.SelectedItem = value; }
+            get { return selectCiudad.SelectedItem.ToString(); }
         }
+
+
+
         public string Telefono 
         {
             set { telefono.Text = value; }
@@ -106,6 +176,11 @@ namespace deliverywindows
 
         private void CartersEditor_Load(object sender, EventArgs e)
         {
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
