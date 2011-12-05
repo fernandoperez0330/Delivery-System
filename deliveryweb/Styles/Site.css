@@ -144,8 +144,8 @@ first child of the left and right table columns */
 
 div.hideSkiplink
 {
-    background-color:#3a4f63;
-    width:100%;
+    background-color: #7b2e00;
+    width: 100%;
 }
 
 div.menu
@@ -163,7 +163,7 @@ div.menu ul
 
 div.menu ul li a, div.menu ul li a:visited
 {
-    background-color: #465c71;
+    background-color: #716246;
     border: 1px #4e667d solid;
     color: #dde4ec;
     display: block;
@@ -175,8 +175,8 @@ div.menu ul li a, div.menu ul li a:visited
 
 div.menu ul li a:hover
 {
-    background-color: #bfcbd6;
-    color: #465c71;
+    background-color: #716046;
+    color: #fff;
     text-decoration: none;
 }
 

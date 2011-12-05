@@ -56,8 +56,6 @@
     <Compile Include="controllers\CarreroManage.cs" />
     <Compile Include="controllers\ManagersInterface.cs" />
     <Compile Include="controllers\SupplierManage.cs" />
-    <Compile Include="controllers\UserValidation.cs" />
-    <Compile Include="controllers\UsuariosManage.cs" />
     <Compile Include="controllers\ViajesManage.cs" />
     <Compile Include="DATABASE.designer.cs">
       <AutoGen>True</AutoGen>

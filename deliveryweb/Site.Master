@@ -13,14 +13,18 @@
     <div class="page">
         <div class="header">
             <div class="title">
-                <h1>
-                    Delivery&nbsp; system</h1>
+                <h1>Delivery&nbsp; system</h1>
             </div>
             <div class="loginDisplay">
             </div>
             <div class="clear hideSkiplink">
                 <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false" IncludeStyleBlock="false" Orientation="Horizontal">
                     <Items>
+                        <asp:MenuItem NavigateUrl="~/Inicio.aspx" Text="Inicio" Value="Inicio">
+                        </asp:MenuItem>
+                        <asp:MenuItem NavigateUrl="~/RastreoOrden.aspx" Text="Rastrear Pedido" 
+                            Value="Rastrear Pedido"></asp:MenuItem>
+                        <asp:MenuItem Text="Login" Value="Login"></asp:MenuItem>
                     </Items>
                 </asp:Menu>
             </div>
