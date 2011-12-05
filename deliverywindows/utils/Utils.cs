@@ -22,7 +22,7 @@ namespace deliverywindows.utils
             sSource = Config.nameProgram;
             sLog = exc.Message;
             sEvent = exc.Source;
-            MessageBox.Show("source: " + exc.Source + "\nmessage: " + exc.Message + "\n");
+            //MessageBox.Show("source: " + exc.Source + "\nmessage: " + exc.Message + "\n");
 
             if (!EventLog.SourceExists(sSource))
                 EventLog.CreateEventSource(sSource, sLog);
